@@ -1,11 +1,11 @@
-using System.Threading.Tasks;
-using Application;
-using Infrastructure;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+using ConferencePlanner.Application;
+using ConferencePlanner.GraphQL.Mutations;
+using ConferencePlanner.GraphQL.Nodes;
+using ConferencePlanner.GraphQL.Queries;
+using ConferencePlanner.GraphQL.Subscriptions;
+using ConferencePlanner.Infrastructure;
+using ConferencePlanner.Infrastructure.Persistence.DataLoaders;
+using HotChocolate.AspNetCore;
 
 namespace ConferencePlanner.GraphQL
 {
@@ -41,6 +41,58 @@ namespace ConferencePlanner.GraphQL
 
             services.AddApplication();
             services.AddInfrastructure(Configuration);
+            
+            // This adds the GraphQL server core service and declares a schema.
+            services
+                .AddGraphQLServer()
+
+                // Next we add the types to our schema.
+                .AddQueryType()
+                .AddMutationType()
+                .AddSubscriptionType()
+                
+                .AddTypeExtension<AttendeeQueries>()
+                .AddTypeExtension<AttendeeMutations>()
+                .AddTypeExtension<AttendeeSubscriptions>()
+                .AddTypeExtension<AttendeeNode>()
+                .AddDataLoader<AttendeeByIdDataLoader>()
+                
+                .AddTypeExtension<SessionQueries>()
+                .AddTypeExtension<SessionMutations>()
+                .AddTypeExtension<SessionSubscriptions>()
+                .AddTypeExtension<SessionNode>()
+                .AddDataLoader<SessionByIdDataLoader>()
+                .AddDataLoader<SessionBySpeakerIdDataLoader>()
+                
+                .AddTypeExtension<SpeakerQueries>()
+                .AddTypeExtension<SpeakerMutations>()
+                .AddTypeExtension<SpeakerNode>()
+                .AddDataLoader<SpeakerByIdDataLoader>()
+                .AddDataLoader<SessionBySpeakerIdDataLoader>()
+                
+                .AddTypeExtension<TrackQueries>()
+                .AddTypeExtension<TrackMutations>()
+                .AddTypeExtension<TrackNode>()
+                .AddDataLoader<TrackByIdDataLoader>()
+
+                // In this section we are adding extensions like relay helpers,
+                // filtering and sorting.
+                .AddFiltering()
+                .AddSorting()
+                .AddGlobalObjectIdentification()
+                
+                // we make sure that the db exists and prefill it with conference data.
+                .EnsureDatabaseIsCreated()
+
+                // Since we are using subscriptions, we need to register a pub/sub system.
+                // for our demo we are using a in-memory pub/sub system.
+                .AddInMemorySubscriptions()
+
+                // Last we add support for persisted queries. 
+                // The first line adds the persisted query storage, 
+                // the second one the persisted query processing pipeline.
+                .AddFileSystemQueryStorage("./persisted_queries")
+                .UsePersistedQueryPipeline();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -58,6 +110,16 @@ namespace ConferencePlanner.GraphQL
 
             app.UseEndpoints(endpoints =>
             {
+                // We will be using the new routing API to host our GraphQL middleware.
+                endpoints.MapGraphQL()
+                    .WithOptions(new GraphQLServerOptions
+                    {
+                        Tool =
+                        {
+                            GaTrackingId = "G-2Y04SFDV8F"
+                        }
+                    });
+                
                 endpoints.MapGet("/", context =>
                 {
                     context.Response.Redirect("/graphql", true);
