@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Application
+namespace ConferencePlanner.Application
 {
     /// <summary>
     /// Dependency injection extension to configure Application layer services.

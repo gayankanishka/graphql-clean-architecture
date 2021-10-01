@@ -1,7 +1,7 @@
 using ConferencePlanner.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure.Persistence
+namespace ConferencePlanner.Infrastructure.Persistence
 {
     public class ApplicationDbContext : DbContext
     {

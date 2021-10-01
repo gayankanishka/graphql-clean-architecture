@@ -6,10 +6,20 @@
         <Nullable>enable</Nullable>
         <AssemblyName>ConferencePlanner.Application</AssemblyName>
         <LangVersion>default</LangVersion>
+        <RootNamespace>ConferencePlanner.Application</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="HotChocolate.Types" Version="12.0.1" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0-rc.1.21451.13" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Common\Interfaces" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Domain\Domain.csproj" />
     </ItemGroup>
 
 </Project>

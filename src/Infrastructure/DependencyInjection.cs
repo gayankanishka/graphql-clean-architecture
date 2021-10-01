@@ -1,10 +1,10 @@
-using Infrastructure.Persistence;
+using ConferencePlanner.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace Infrastructure
+namespace ConferencePlanner.Infrastructure
 {
     /// <summary>
     /// Dependency injection extension to configure Infrastructure layer services.
