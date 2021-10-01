@@ -1,12 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Threading.Tasks;
-using ConferencePlanner.GraphQL.Data;
+using ConferencePlanner.Domain.Entities;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace ConferencePlanner.GraphQL.Imports
+namespace ConferencePlanner.Infrastructure.Persistence.Imports
 {
     public class DataImporter
     {

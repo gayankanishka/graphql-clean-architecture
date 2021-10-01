@@ -1,10 +1,8 @@
-
-using ConferencePlanner.GraphQL.Data;
 using HotChocolate.Execution.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace ConferencePlanner.GraphQL.Imports
+namespace ConferencePlanner.Infrastructure.Persistence.Imports
 {
     public static class ImportRequestExecutorBuilderExtensions
     {
@@ -14,7 +12,7 @@ namespace ConferencePlanner.GraphQL.Imports
             {
                 IDbContextFactory<ApplicationDbContext> factory =
                     services.GetRequiredService<IDbContextFactory<ApplicationDbContext>>();
-                await using ApplicationDbContext dbContext = factory.CreateDbContext();
+                await using ApplicationDbContext dbContext = await factory.CreateDbContextAsync(ct);
 
                 if (await dbContext.Database.EnsureCreatedAsync(ct))
                 {
@@ -22,5 +20,5 @@ namespace ConferencePlanner.GraphQL.Imports
                     await importer.LoadDataAsync(dbContext);
                 }
             });
-        }
+    }
 }
