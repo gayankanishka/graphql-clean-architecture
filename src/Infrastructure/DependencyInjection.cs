@@ -1,5 +1,8 @@
+using Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace Infrastructure
 {
@@ -17,6 +20,11 @@ namespace Infrastructure
         public static IServiceCollection AddInfrastructure(this IServiceCollection services,
             IConfiguration configuration)
         {
+            services.AddPooledDbContextFactory<ApplicationDbContext>(
+                (s, o) => o
+                    .UseSqlite("Data Source=conferences.db")
+                    .UseLoggerFactory(s.GetRequiredService<ILoggerFactory>()));
+
             return services;
         }
     }
