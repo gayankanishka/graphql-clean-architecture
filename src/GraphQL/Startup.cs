@@ -5,6 +5,7 @@ using ConferencePlanner.GraphQL.Queries;
 using ConferencePlanner.GraphQL.Subscriptions;
 using ConferencePlanner.Infrastructure;
 using ConferencePlanner.Infrastructure.Persistence.DataLoaders;
+using ConferencePlanner.Infrastructure.Persistence.Imports;
 using HotChocolate.AspNetCore;
 
 namespace ConferencePlanner.GraphQL
@@ -91,7 +92,7 @@ namespace ConferencePlanner.GraphQL
                 // Last we add support for persisted queries. 
                 // The first line adds the persisted query storage, 
                 // the second one the persisted query processing pipeline.
-                .AddFileSystemQueryStorage("./persisted_queries")
+                .AddInMemoryQueryStorage()
                 .UsePersistedQueryPipeline();
         }
 
