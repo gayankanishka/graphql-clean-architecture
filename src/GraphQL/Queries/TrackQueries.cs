@@ -1,31 +1,34 @@
+using ConferencePlanner.Application.Tracks.Queries.GetTrackByName;
+using ConferencePlanner.Application.Tracks.Queries.GetTracks;
+using ConferencePlanner.Application.Tracks.Queries.GetTracksByNames;
+using ConferencePlanner.Domain.Entities;
 using HotChocolate;
 using HotChocolate.Types;
 using HotChocolate.Types.Relay;
+using MediatR;
 
 namespace ConferencePlanner.GraphQL.Queries
 {
     [ExtendObjectType(OperationTypeNames.Query)]
     public class TrackQueries
     {
-        [UseApplicationDbContext]
         [UsePaging]
-        public IQueryable<Track> GetTracks(
-            [ScopedService] ApplicationDbContext context) 
-            => context.Tracks.OrderBy(t => t.Name);
-
-        [UseApplicationDbContext]
-        public Task<Track> GetTrackByNameAsync(
-            string name,
-            [ScopedService] ApplicationDbContext context,
+        public async Task<IQueryable<Track>> GetTracks(
+            [Service] IMediator mediator,
             CancellationToken cancellationToken) 
-            => context.Tracks.FirstAsync(t => t.Name == name, cancellationToken);
+            => await mediator.Send(new GetTracksQuery(), cancellationToken);
 
-        [UseApplicationDbContext]
+        public async Task<Track?> GetTrackByNameAsync(
+            GetTrackByNameQuery input,
+            [Service] IMediator mediator,
+            CancellationToken cancellationToken) 
+            => await mediator.Send(input, cancellationToken);
+
         public async Task<IEnumerable<Track>> GetTrackByNamesAsync(
-            string[] names,
-            [ScopedService] ApplicationDbContext context,
+            GetTracksByNamesQuery input,
+            [Service] IMediator mediator,
             CancellationToken cancellationToken) 
-            => await context.Tracks.Where(t => names.Contains(t.Name)).ToListAsync(cancellationToken);
+            => await mediator.Send(input, cancellationToken);
 
         public Task<Track> GetTrackByIdAsync(
             [ID(nameof(Track))] int id,

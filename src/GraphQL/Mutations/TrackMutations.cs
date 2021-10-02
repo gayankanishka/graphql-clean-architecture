@@ -1,43 +1,39 @@
+using ConferencePlanner.Application.Tracks.Commands.AddTrack;
+using ConferencePlanner.Application.Tracks.Commands.RenameTrack;
+using ConferencePlanner.Domain.Entities;
 using ConferencePlanner.GraphQL.Tracks;
+using ConferencePlanner.Infrastructure.Persistence;
 using HotChocolate;
 using HotChocolate.Types;
+using MediatR;
 
 namespace ConferencePlanner.GraphQL.Mutations
 {
     [ExtendObjectType(OperationTypeNames.Mutation)]
     public class TrackMutations
     {
-        [UseApplicationDbContext]
         public async Task<AddTrackPayload> AddTrackAsync(
-            AddTrackInput input,
-            [ScopedService] ApplicationDbContext context,
+            AddTrackCommand input,
+            [Service] IMediator mediator,
             CancellationToken cancellationToken)
         {
-            var track = new Track { Name = input.Name };
-            context.Tracks.Add(track);
-
-            await context.SaveChangesAsync(cancellationToken);
+            var track = await mediator.Send(input, cancellationToken);
 
             return new AddTrackPayload(track);
         }
 
-        [UseApplicationDbContext]
         public async Task<RenameTrackPayload> RenameTrackAsync(
-            RenameTrackInput input,
-            [ScopedService] ApplicationDbContext context,
+            RenameTrackCommand input,
+            [Service] IMediator mediator,
             CancellationToken cancellationToken)
         {
-            var track = await context.Tracks.FindAsync(input.Id, cancellationToken);
+            var track = await mediator.Send(input, cancellationToken);
 
             if (track is null)
             {
                 throw new GraphQLException("Track not found.");
             }
             
-            track.Name = input.Name;
-
-            await context.SaveChangesAsync(cancellationToken);
-
             return new RenameTrackPayload(track);
         }
     }
