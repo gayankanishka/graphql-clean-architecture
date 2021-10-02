@@ -1,44 +1,33 @@
-using ConferencePlanner.Application.Attendees;
+using ConferencePlanner.Application.Attendees.Commands.CheckInAttendeeById;
+using ConferencePlanner.Application.Attendees.Commands.RegisterAttendee;
 using ConferencePlanner.Domain.Common;
+using ConferencePlanner.Domain.Payloads;
 using HotChocolate;
 using HotChocolate.Subscriptions;
 using HotChocolate.Types;
+using MediatR;
 
 namespace ConferencePlanner.GraphQL.Mutations
 {
     [ExtendObjectType(OperationTypeNames.Mutation)]
     public class AttendeeMutations
     {
-        [UseApplicationDbContext]
         public async Task<RegisterAttendeePayload> RegisterAttendeeAsync(
-            RegisterAttendeeInput input,
-            [ScopedService] ApplicationDbContext context,
+            RegisterAttendeeCommand input,
+            [Service] IMediator mediator,
             CancellationToken cancellationToken)
         {
-            var attendee = new Attendee
-            {
-                FirstName = input.FirstName,
-                LastName = input.LastName,
-                UserName = input.UserName,
-                EmailAddress = input.EmailAddress
-            };
-
-            context.Attendees.Add(attendee);
-
-            await context.SaveChangesAsync(cancellationToken);
-
+            var attendee = await mediator.Send(input, cancellationToken);
             return new RegisterAttendeePayload(attendee);
         }
 
-        [UseApplicationDbContext]
         public async Task<CheckInAttendeePayload> CheckInAttendeeAsync(
-            CheckInAttendeeInput input,
-            [ScopedService] ApplicationDbContext context,
+            CheckInAttendeeCommand command,
+            [Service] IMediator mediator,
             [Service] ITopicEventSender eventSender,
             CancellationToken cancellationToken)
         {
-            var attendee = await context.Attendees.FirstOrDefaultAsync(
-                t => t.Id == input.AttendeeId, cancellationToken);
+            var attendee = await mediator.Send(command, cancellationToken);
 
             if (attendee is null)
             {
@@ -46,20 +35,12 @@ namespace ConferencePlanner.GraphQL.Mutations
                     new UserError("Attendee not found.", "ATTENDEE_NOT_FOUND"));
             }
 
-            attendee.SessionsAttendees.Add(
-                new SessionAttendee
-                {
-                    SessionId = input.SessionId
-                });
-
-            await context.SaveChangesAsync(cancellationToken);
-
             await eventSender.SendAsync(
-                "OnAttendeeCheckedIn_" + input.SessionId,
-                input.AttendeeId,
+                "OnAttendeeCheckedIn_" + command.SessionId,
+                command.AttendeeId,
                 cancellationToken);
 
-            return new CheckInAttendeePayload(attendee, input.SessionId);
+            return new CheckInAttendeePayload(attendee, command.SessionId);
         }
     }
 }
