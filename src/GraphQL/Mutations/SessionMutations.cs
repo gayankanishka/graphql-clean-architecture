@@ -1,19 +1,21 @@
+using ConferencePlanner.Application.Sessions.Commands.AddSession;
+using ConferencePlanner.Application.Sessions.Commands.RenameSession;
+using ConferencePlanner.Application.Sessions.Commands.ScheduleSession;
 using ConferencePlanner.Domain.Common;
-using ConferencePlanner.GraphQL.Sessions;
 using ConferencePlanner.GraphQL.Subscriptions;
 using HotChocolate;
 using HotChocolate.Subscriptions;
 using HotChocolate.Types;
+using MediatR;
 
 namespace ConferencePlanner.GraphQL.Mutations
 {
     [ExtendObjectType(OperationTypeNames.Mutation)]
     public class SessionMutations
     {
-        [UseApplicationDbContext]
         public async Task<AddSessionPayload> AddSessionAsync(
-            AddSessionInput input,
-            [ScopedService] ApplicationDbContext context,
+            AddSessionCommand input,
+            [Service] IMediator mediator,
             CancellationToken cancellationToken)
         {
             if (string.IsNullOrEmpty(input.Title))
@@ -28,31 +30,16 @@ namespace ConferencePlanner.GraphQL.Mutations
                     new UserError("No speaker assigned.", "NO_SPEAKER"));
             }
 
-            var session = new Session
-            {
-                Title = input.Title,
-                Abstract = input.Abstract,
-            };
-
-            foreach (int speakerId in input.SpeakerIds)
-            {
-                session.SessionSpeakers.Add(new SessionSpeaker
-                {
-                    SpeakerId = speakerId
-                });
-            }
-
-            context.Sessions.Add(session);
-            await context.SaveChangesAsync(cancellationToken);
+            var session = await mediator.Send(input, cancellationToken);
 
             return new AddSessionPayload(session);
         }
 
-        [UseApplicationDbContext]
         public async Task<ScheduleSessionPayload> ScheduleSessionAsync(
-            ScheduleSessionInput input,
-            [ScopedService] ApplicationDbContext context,
-            [Service]ITopicEventSender eventSender)
+            ScheduleSessionCommand input,
+            [Service] IMediator mediator,
+            [Service] ITopicEventSender eventSender,
+            CancellationToken cancellationToken)
         {
             if (input.EndTime < input.StartTime)
             {
@@ -60,19 +47,13 @@ namespace ConferencePlanner.GraphQL.Mutations
                     new UserError("endTime has to be larger than startTime.", "END_TIME_INVALID"));
             }
 
-            var session = await context.Sessions.FindAsync(input.SessionId);
+            var session = await mediator.Send(input, cancellationToken);
 
             if (session is null)
             {
                 return new ScheduleSessionPayload(
                     new UserError("Session not found.", "SESSION_NOT_FOUND"));
             }
-
-            session.TrackId = input.TrackId;
-            session.StartTime = input.StartTime;
-            session.EndTime = input.EndTime;
-
-            await context.SaveChangesAsync();
 
             await eventSender.SendAsync(
                 nameof(SessionSubscriptions.OnSessionScheduledAsync),
@@ -81,24 +62,20 @@ namespace ConferencePlanner.GraphQL.Mutations
             return new ScheduleSessionPayload(session);
         }
 
-        [UseApplicationDbContext]
         public async Task<RenameSessionPayload> RenameSessionAsync(
-            RenameSessionInput input,
-            [ScopedService] ApplicationDbContext context,
-            [Service]ITopicEventSender eventSender)
+            RenameSessionCommand input,
+            [Service] IMediator mediator,
+            [Service]ITopicEventSender eventSender,
+            CancellationToken cancellationToken)
         {
-            var session = await context.Sessions.FindAsync(input.SessionId);
+            var session = await mediator.Send(input, cancellationToken);
 
             if (session is null)
             {
                 return new RenameSessionPayload(
                     new UserError("Session not found.", "SESSION_NOT_FOUND"));
             }
-
-            session.Title = input.Title;
-
-            await context.SaveChangesAsync();
-
+            
             await eventSender.SendAsync(
                 nameof(SessionSubscriptions.OnSessionScheduledAsync),
                 session.Id);

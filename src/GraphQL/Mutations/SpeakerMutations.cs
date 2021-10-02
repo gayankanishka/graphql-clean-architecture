@@ -1,36 +1,29 @@
+using ConferencePlanner.Application.Speakers;
+using ConferencePlanner.Application.Speakers.Commands.AddSpeaker;
+using ConferencePlanner.Application.Speakers.Commands.ModifySpeaker;
 using ConferencePlanner.Domain.Common;
-using ConferencePlanner.GraphQL.Speakers;
 using HotChocolate;
 using HotChocolate.Types;
+using MediatR;
 
 namespace ConferencePlanner.GraphQL.Mutations
 {
     [ExtendObjectType(OperationTypeNames.Mutation)]
     public class SpeakerMutations
     {
-        [UseApplicationDbContext]
         public async Task<AddSpeakerPayload> AddSpeakerAsync(
-            AddSpeakerInput input,
-            [ScopedService] ApplicationDbContext context,
+            AddSpeakerCommand input,
+            [Service] IMediator mediator,
             CancellationToken cancellationToken)
         {
-            var speaker = new Speaker
-            {
-                Name = input.Name,
-                Bio = input.Bio,
-                WebSite = input.WebSite
-            };
-
-            context.Speakers.Add(speaker);
-            await context.SaveChangesAsync(cancellationToken);
+            var speaker = await mediator.Send(input, cancellationToken);
 
             return new AddSpeakerPayload(speaker);
         }
 
-        [UseApplicationDbContext]
         public async Task<ModifySpeakerPayload> ModifySpeakerAsync(
-            ModifySpeakerInput input,
-            [ScopedService] ApplicationDbContext context,
+            ModifySpeakerCommand input,
+            [Service] IMediator mediator,
             CancellationToken cancellationToken)
         {
             if (input.Name.HasValue && input.Name.Value is null)
@@ -39,31 +32,14 @@ namespace ConferencePlanner.GraphQL.Mutations
                     new UserError("Name cannot be null", "NAME_NULL"));
             }
 
-            Speaker? speaker = await context.Speakers.FindAsync(input.Id);
+            var speaker = await mediator.Send(input, cancellationToken);
 
             if (speaker is null)
             {
                 return new ModifySpeakerPayload(
                     new UserError("Speaker with id not found.", "SPEAKER_NOT_FOUND"));
             }
-
-            if (input.Name.HasValue)
-            {
-                speaker.Name = input.Name;
-            }
-
-            if (input.Bio.HasValue)
-            {
-                speaker.Bio = input.Bio;
-            }
-
-            if (input.WebSite.HasValue)
-            {
-                speaker.WebSite = input.WebSite;
-            }
-
-            await context.SaveChangesAsync(cancellationToken);
-
+            
             return new ModifySpeakerPayload(speaker);
         }
     }
