@@ -1,8 +1,7 @@
-using System.Collections.Generic;
-using ConferencePlanner.GraphQL.Common;
-using ConferencePlanner.GraphQL.Data;
+using ConferencePlanner.Domain.Common;
+using ConferencePlanner.Domain.Entities;
 
-namespace ConferencePlanner.GraphQL.Speakers
+namespace ConferencePlanner.Application.Speakers
 {
     public class SpeakerPayloadBase : Payload
     {

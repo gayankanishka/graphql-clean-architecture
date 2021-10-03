@@ -1,6 +1,5 @@
 using ConferencePlanner.Domain.Common;
 using ConferencePlanner.Domain.Entities;
-using ConferencePlanner.GraphQL.Speakers;
 
 namespace ConferencePlanner.Application.Speakers.Commands.AddSpeaker
 {
