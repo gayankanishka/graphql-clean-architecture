@@ -1,10 +1,11 @@
+using ConferencePlanner.Application.Common.Interfaces;
 using ConferencePlanner.Domain.Entities;
 using GreenDonut;
 using Microsoft.EntityFrameworkCore;
 
 namespace ConferencePlanner.Infrastructure.Persistence.DataLoaders
 {
-    public class TrackByIdDataLoader : BatchDataLoader<int, Track>
+    internal class TrackByIdDataLoader : BatchDataLoader<int, Track>, ITrackByIdDataLoader
     {
         private readonly IDbContextFactory<ApplicationDbContext> _dbContextFactory;
 

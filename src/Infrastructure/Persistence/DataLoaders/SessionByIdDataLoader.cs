@@ -1,10 +1,11 @@
+using ConferencePlanner.Application.Common.Interfaces;
 using ConferencePlanner.Domain.Entities;
 using GreenDonut;
 using Microsoft.EntityFrameworkCore;
 
 namespace ConferencePlanner.Infrastructure.Persistence.DataLoaders
 {
-    public class SessionByIdDataLoader : BatchDataLoader<int, Session>
+    internal class SessionByIdDataLoader : BatchDataLoader<int, Session>, ISessionByIdDataLoader
     {
         private readonly IDbContextFactory<ApplicationDbContext> _dbContextFactory;
 
@@ -14,17 +15,17 @@ namespace ConferencePlanner.Infrastructure.Persistence.DataLoaders
             DataLoaderOptions options)
             : base(batchScheduler, options)
         {
-            _dbContextFactory = dbContextFactory ?? 
-                throw new ArgumentNullException(nameof(dbContextFactory));
+            _dbContextFactory = dbContextFactory ??
+                                throw new ArgumentNullException(nameof(dbContextFactory));
         }
 
         protected override async Task<IReadOnlyDictionary<int, Session>> LoadBatchAsync(
-            IReadOnlyList<int> keys, 
+            IReadOnlyList<int> keys,
             CancellationToken cancellationToken)
         {
-            await using ApplicationDbContext dbContext = 
+            await using ApplicationDbContext dbContext =
                 await _dbContextFactory.CreateDbContextAsync(cancellationToken);
-            
+
             return await dbContext.Sessions
                 .Where(s => keys.Contains(s.Id))
                 .ToDictionaryAsync(t => t.Id, cancellationToken);

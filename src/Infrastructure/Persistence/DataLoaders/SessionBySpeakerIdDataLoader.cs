@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ConferencePlanner.Infrastructure.Persistence.DataLoaders
 {
-    public class SessionBySpeakerIdDataLoader : GroupedDataLoader<int, Session>
+    internal class SessionBySpeakerIdDataLoader : GroupedDataLoader<int, Session>
     {
         private static readonly string _sessionCacheKey = GetCacheKeyType<SessionByIdDataLoader>();
         private readonly IDbContextFactory<ApplicationDbContext> _dbContextFactory;
