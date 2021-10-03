@@ -1,10 +1,11 @@
+using ConferencePlanner.Application.Tracks.Queries.GetTrackById;
 using ConferencePlanner.Application.Tracks.Queries.GetTrackByName;
 using ConferencePlanner.Application.Tracks.Queries.GetTracks;
+using ConferencePlanner.Application.Tracks.Queries.GetTracksByIds;
 using ConferencePlanner.Application.Tracks.Queries.GetTracksByNames;
 using ConferencePlanner.Domain.Entities;
 using HotChocolate;
 using HotChocolate.Types;
-using HotChocolate.Types.Relay;
 using MediatR;
 
 namespace ConferencePlanner.GraphQL.Queries
@@ -30,16 +31,16 @@ namespace ConferencePlanner.GraphQL.Queries
             CancellationToken cancellationToken) 
             => await mediator.Send(input, cancellationToken);
 
-        public Task<Track> GetTrackByIdAsync(
-            [ID(nameof(Track))] int id,
-            TrackByIdDataLoader trackById,
+        public async Task<Track> GetTrackByIdAsync(
+            GetTrackByIdQuery input,
+            [Service] IMediator mediator,
             CancellationToken cancellationToken) 
-            => trackById.LoadAsync(id, cancellationToken);
+            => await mediator.Send(input, cancellationToken);
 
         public async Task<IEnumerable<Track>> GetSessionsByIdAsync(
-            [ID(nameof(Track))] int[] ids,
-            TrackByIdDataLoader trackById,
+            GetTracksByIdsQuery input,
+            [Service] IMediator mediator,
             CancellationToken cancellationToken) 
-            => await trackById.LoadAsync(ids, cancellationToken);
+            => await mediator.Send(input, cancellationToken);
     }
 }

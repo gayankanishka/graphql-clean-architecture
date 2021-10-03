@@ -1,7 +1,6 @@
 using ConferencePlanner.Application.Tracks.Commands.AddTrack;
 using ConferencePlanner.Application.Tracks.Commands.RenameTrack;
 using ConferencePlanner.Domain.Entities;
-using ConferencePlanner.GraphQL.Tracks;
 using ConferencePlanner.Infrastructure.Persistence;
 using HotChocolate;
 using HotChocolate.Types;
