@@ -4,7 +4,6 @@ using ConferencePlanner.GraphQL.Nodes;
 using ConferencePlanner.GraphQL.Queries;
 using ConferencePlanner.GraphQL.Subscriptions;
 using ConferencePlanner.Infrastructure;
-using ConferencePlanner.Infrastructure.Persistence.DataLoaders;
 using ConferencePlanner.Infrastructure.Persistence.Imports;
 using HotChocolate.AspNetCore;
 
@@ -56,25 +55,21 @@ namespace ConferencePlanner.GraphQL
                 .AddTypeExtension<AttendeeMutations>()
                 .AddTypeExtension<AttendeeSubscriptions>()
                 .AddTypeExtension<AttendeeNode>()
-                .AddDataLoader<AttendeeByIdDataLoader>()
                 
                 .AddTypeExtension<SessionQueries>()
                 .AddTypeExtension<SessionMutations>()
                 .AddTypeExtension<SessionSubscriptions>()
                 .AddTypeExtension<SessionNode>()
-                .AddDataLoader<SessionByIdDataLoader>()
-                .AddDataLoader<SessionBySpeakerIdDataLoader>()
                 
                 .AddTypeExtension<SpeakerQueries>()
                 .AddTypeExtension<SpeakerMutations>()
                 .AddTypeExtension<SpeakerNode>()
-                .AddDataLoader<SpeakerByIdDataLoader>()
-                .AddDataLoader<SessionBySpeakerIdDataLoader>()
                 
                 .AddTypeExtension<TrackQueries>()
                 .AddTypeExtension<TrackMutations>()
                 .AddTypeExtension<TrackNode>()
-                .AddDataLoader<TrackByIdDataLoader>()
+                
+                .AddDataLoaders()
 
                 // In this section we are adding extensions like relay helpers,
                 // filtering and sorting.
