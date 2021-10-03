@@ -1,9 +1,10 @@
 using ConferencePlanner.Application.Common.Interfaces;
 using ConferencePlanner.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace ConferencePlanner.Infrastructure.Persistence.Repositories
 {
-    public class SessionRepository : ISessionRepository
+    internal class SessionRepository : ISessionRepository
     {
         private readonly ApplicationDbContext _context;
 
@@ -16,6 +17,13 @@ namespace ConferencePlanner.Infrastructure.Persistence.Repositories
         {
             await _context.Sessions.AddAsync(session, cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);
+        }
+
+        public IQueryable<Session> GetAllSessions()
+        {
+            return _context.Sessions
+                .AsQueryable()
+                .AsNoTracking();
         }
 
         public async Task<Session?> FindSessionByIdAsync(string id, CancellationToken cancellationToken)

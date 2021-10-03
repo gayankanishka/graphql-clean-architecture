@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ConferencePlanner.Infrastructure.Persistence.Repositories
 {
-    public class AttendeeRepository : IAttendeeRepository
+    internal class AttendeeRepository : IAttendeeRepository
     {
         private readonly ApplicationDbContext _context;
 
@@ -17,6 +17,13 @@ namespace ConferencePlanner.Infrastructure.Persistence.Repositories
         {
             await _context.Attendees.AddAsync(attendee, cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);
+        }
+
+        public IQueryable<Attendee> GetAllAttendees()
+        {
+            return _context.Attendees
+                .AsQueryable()
+                .AsNoTracking();
         }
 
         public async Task<Attendee?> FindAttendeeByIdAsync(int id, CancellationToken cancellationToken)

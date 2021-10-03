@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ConferencePlanner.Infrastructure.Persistence.Repositories
 {
-    public class TrackRepository : ITrackRepository
+    internal class TrackRepository : ITrackRepository
     {
         private readonly ApplicationDbContext _context;
 

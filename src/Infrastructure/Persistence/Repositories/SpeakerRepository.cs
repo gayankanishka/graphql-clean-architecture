@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ConferencePlanner.Infrastructure.Persistence.Repositories
 {
-    public class SpeakerRepository : ISpeakerRepository
+    internal class SpeakerRepository : ISpeakerRepository
     {
         private readonly ApplicationDbContext _context;
 
@@ -17,6 +17,13 @@ namespace ConferencePlanner.Infrastructure.Persistence.Repositories
         {
             await _context.Speakers.AddAsync(speaker, cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);
+        }
+
+        public IQueryable<Speaker> GetAllSpeakers()
+        {
+            return _context.Speakers
+                .AsQueryable()
+                .AsNoTracking();
         }
 
         public async Task<Speaker?> FindSpeakerByIdAsync(int id, CancellationToken cancellationToken)
@@ -32,4 +39,3 @@ namespace ConferencePlanner.Infrastructure.Persistence.Repositories
         }
     }
 }
-
