@@ -1,6 +1,10 @@
+using ConferencePlanner.Application.Attendees.Queries.GetAttendeeById;
+using ConferencePlanner.Application.Attendees.Queries.GetAttendees;
+using ConferencePlanner.Application.Attendees.Queries.GetAttendeesByIds;
+using ConferencePlanner.Domain.Entities;
 using HotChocolate;
 using HotChocolate.Types;
-using HotChocolate.Types.Relay;
+using MediatR;
 
 namespace ConferencePlanner.GraphQL.Queries
 {
@@ -10,29 +14,32 @@ namespace ConferencePlanner.GraphQL.Queries
         /// <summary>
         /// Gets all attendees of this conference.
         /// </summary>
-        [UseApplicationDbContext]
+        /// <param name="mediator"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         [UsePaging]
-        public IQueryable<Attendee> GetAttendees(
-            [ScopedService] ApplicationDbContext context) 
-            => context.Attendees;
+        public async Task<IQueryable<Attendee>> GetAttendeesAsync(
+            [Service] IMediator mediator,
+            CancellationToken cancellationToken) 
+            => await mediator.Send(new GetAttendeesQuery(), cancellationToken);
 
         /// <summary>
         /// Gets an attendee by its identifier.
         /// </summary>
-        /// <param name="id">The attendee identifier.</param>
-        /// <param name="attendeeById"></param>
+        /// <param name="input">The attendee identifier.</param>
+        /// <param name="mediator"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public Task<Attendee> GetAttendeeByIdAsync(
-            [ID(nameof(Attendee))] int id,
-            AttendeeByIdDataLoader attendeeById,
+        public async Task<Attendee> GetAttendeeByIdAsync(
+            GetAttendeeByIdQuery input,
+            [Service] IMediator mediator,
             CancellationToken cancellationToken) 
-            => attendeeById.LoadAsync(id, cancellationToken);
+            => await mediator.Send(input, cancellationToken);
 
         public async Task<IEnumerable<Attendee>> GetAttendeesByIdAsync(
-            [ID(nameof(Attendee))] int[] ids,
-            AttendeeByIdDataLoader attendeeById,
+            GetAttendeesByIdsQuery input,
+            [Service] IMediator mediator,
             CancellationToken cancellationToken) 
-            => await attendeeById.LoadAsync(ids, cancellationToken);
+            => await mediator.Send(input, cancellationToken);
     }
 }
