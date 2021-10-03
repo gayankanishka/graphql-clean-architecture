@@ -1,6 +1,8 @@
+using ConferencePlanner.Application.Tracks.Queries.GetTrackById;
 using ConferencePlanner.Domain.Common;
 using ConferencePlanner.Domain.Entities;
 using HotChocolate;
+using MediatR;
 
 namespace ConferencePlanner.Application.Sessions.Commands.ScheduleSession
 {
@@ -17,7 +19,7 @@ namespace ConferencePlanner.Application.Sessions.Commands.ScheduleSession
         }
 
         public async Task<Track?> GetTrackAsync(
-            TrackByIdDataLoader trackById,
+            [Service] IMediator mediator,
             CancellationToken cancellationToken)
         {
             if (Session is null)
@@ -25,7 +27,7 @@ namespace ConferencePlanner.Application.Sessions.Commands.ScheduleSession
                 return null;
             }
 
-            return await trackById.LoadAsync(Session.Id, cancellationToken);
+            return await mediator.Send(new GetTrackByIdQuery(Session.Id), cancellationToken);
         }
 
         [UseApplicationDbContext]

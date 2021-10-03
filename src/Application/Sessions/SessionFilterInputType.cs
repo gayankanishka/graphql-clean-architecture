@@ -1,3 +1,6 @@
+using ConferencePlanner.Domain.Entities;
+using HotChocolate.Data.Filters;
+
 namespace ConferencePlanner.Application.Sessions
 {
     public class SessionFilterInputType : FilterInputType<Session>
