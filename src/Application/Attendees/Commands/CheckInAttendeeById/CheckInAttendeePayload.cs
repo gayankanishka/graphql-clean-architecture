@@ -1,6 +1,9 @@
+using ConferencePlanner.Application.Sessions.Queries.GetSessionById;
 using ConferencePlanner.Domain.Common;
 using ConferencePlanner.Domain.Entities;
 using ConferencePlanner.Domain.Payloads;
+using HotChocolate;
+using MediatR;
 
 namespace ConferencePlanner.Application.Attendees.Commands.CheckInAttendeeById
 {
@@ -20,14 +23,14 @@ namespace ConferencePlanner.Application.Attendees.Commands.CheckInAttendeeById
         }
 
         public async Task<Session?> GetSessionAsync(
-            SessionByIdDataLoader sessionById,
+            [Service] IMediator mediator,
             CancellationToken cancellationToken)
         {
             if (_sessionId.HasValue)
             {
-                return await sessionById.LoadAsync(_sessionId.Value, cancellationToken);
+                return await mediator.Send(new GetSessionByIdQuery(_sessionId.Value), cancellationToken);
             }
-
+        
             return null;
         }
     }
