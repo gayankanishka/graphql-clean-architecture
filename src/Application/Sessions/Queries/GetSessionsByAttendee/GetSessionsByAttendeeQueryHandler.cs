@@ -3,7 +3,7 @@ using ConferencePlanner.Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace ConferencePlanner.Application.Sessions.Queries.GetSessionsByAttendeeQuery
+namespace ConferencePlanner.Application.Sessions.Queries.GetSessionsByAttendee
 {
     public class GetSessionsByAttendeeQueryHandler : IRequestHandler<GetSessionsByAttendeeQuery, IEnumerable<Session>>
     {

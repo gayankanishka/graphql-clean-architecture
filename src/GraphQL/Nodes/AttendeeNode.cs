@@ -1,5 +1,5 @@
 using ConferencePlanner.Application.Attendees.Queries.GetAttendeeById;
-using ConferencePlanner.Application.Sessions.Queries.GetSessionsByAttendeeQuery;
+using ConferencePlanner.Application.Sessions.Queries.GetSessionsByAttendee;
 using ConferencePlanner.Domain.Entities;
 using HotChocolate;
 using HotChocolate.Types;
