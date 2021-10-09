@@ -3,6 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{F1ADFCC5-AAED-46E5-BD58-B94FAE7FAFE4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F77EB19C-071D-457B-BC48-DD43C13601E2}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+		nuget.config = nuget.config
+		README.md = README.md
+		schema.graphql = schema.graphql
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphQL", "src\GraphQL\GraphQL.csproj", "{38CDF514-AC79-412C-B5D5-0895126A7646}"
 EndProject
