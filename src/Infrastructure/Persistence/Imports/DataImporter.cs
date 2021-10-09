@@ -8,7 +8,7 @@ namespace ConferencePlanner.Infrastructure.Persistence.Imports
     {
         public async Task LoadDataAsync(ApplicationDbContext db)
         {
-            await using var stream = File.OpenRead("Imports/NDC_London_2019.json");
+            await using var stream = File.OpenRead("NDC_London_2019.json");
             using var reader = new JsonTextReader(new StreamReader(stream));
 
             JArray conference = await JArray.LoadAsync(reader);
