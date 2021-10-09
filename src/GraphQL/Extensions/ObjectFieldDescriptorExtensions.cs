@@ -1,6 +1,6 @@
 using HotChocolate.Types;
 
-namespace ConferencePlanner.GraphQL
+namespace ConferencePlanner.GraphQL.Extensions
 {
     public static class ObjectFieldDescriptorExtensions
     {
@@ -15,6 +15,7 @@ namespace ConferencePlanner.GraphQL
                     {
                         return s.ToUpperInvariant();
                     }
+
                     return result;
                 }));
 
