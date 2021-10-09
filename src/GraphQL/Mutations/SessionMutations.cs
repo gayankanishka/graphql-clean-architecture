@@ -65,7 +65,7 @@ namespace ConferencePlanner.GraphQL.Mutations
         public async Task<RenameSessionPayload> RenameSessionAsync(
             RenameSessionCommand input,
             [Service] IMediator mediator,
-            [Service]ITopicEventSender eventSender,
+            [Service] ITopicEventSender eventSender,
             CancellationToken cancellationToken)
         {
             var session = await mediator.Send(input, cancellationToken);
@@ -75,7 +75,7 @@ namespace ConferencePlanner.GraphQL.Mutations
                 return new RenameSessionPayload(
                     new UserError("Session not found.", "SESSION_NOT_FOUND"));
             }
-            
+
             await eventSender.SendAsync(
                 nameof(SessionSubscriptions.OnSessionScheduledAsync),
                 session.Id);

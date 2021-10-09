@@ -27,7 +27,7 @@ namespace ConferencePlanner.GraphQL
         /// Global Configurations.
         /// </summary>
         public IConfiguration Configuration { get; }
-        
+
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
@@ -41,7 +41,7 @@ namespace ConferencePlanner.GraphQL
 
             services.AddApplication();
             services.AddInfrastructure(Configuration);
-            
+
             // This adds the GraphQL server core service and declares a schema.
             services
                 .AddGraphQLServer()
@@ -76,19 +76,19 @@ namespace ConferencePlanner.GraphQL
                 .AddFiltering()
                 .AddSorting()
                 .AddGlobalObjectIdentification()
-                
+
                 // we make sure that the db exists and prefill it with conference data.
                 .EnsureDatabaseIsCreated()
 
                 // Since we are using subscriptions, we need to register a pub/sub system.
                 // for our demo we are using a in-memory pub/sub system.
-                .AddInMemorySubscriptions()
+                .AddInMemorySubscriptions();
 
-                // Last we add support for persisted queries. 
-                // The first line adds the persisted query storage, 
-                // the second one the persisted query processing pipeline.
-                .AddInMemoryQueryStorage()
-                .UsePersistedQueryPipeline();
+            // Last we add support for persisted queries. 
+            // The first line adds the persisted query storage, 
+            // the second one the persisted query processing pipeline.
+            // .AddInMemoryQueryStorage()
+            // .UsePersistedQueryPipeline();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -115,7 +115,7 @@ namespace ConferencePlanner.GraphQL
                             GaTrackingId = "G-2Y04SFDV8F"
                         }
                     });
-                
+
                 endpoints.MapGet("/", context =>
                 {
                     context.Response.Redirect("/graphql", true);
