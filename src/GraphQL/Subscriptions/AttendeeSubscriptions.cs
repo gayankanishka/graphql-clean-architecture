@@ -1,4 +1,5 @@
 using ConferencePlanner.Application.Attendees;
+using ConferencePlanner.Domain.Entities;
 using HotChocolate;
 using HotChocolate.Execution;
 using HotChocolate.Subscriptions;
@@ -13,13 +14,13 @@ namespace ConferencePlanner.GraphQL.Subscriptions
         [Subscribe(With = nameof(SubscribeToOnAttendeeCheckedInAsync))]
         public SessionAttendeeCheckIn OnAttendeeCheckedIn(
             [ID(nameof(Session))] int sessionId,
-            [EventMessage] int attendeeId) 
+            [EventMessage] int attendeeId)
             => new(attendeeId, sessionId);
 
         public async ValueTask<ISourceStream<int>> SubscribeToOnAttendeeCheckedInAsync(
             int sessionId,
             [Service] ITopicEventReceiver eventReceiver,
-            CancellationToken cancellationToken) 
+            CancellationToken cancellationToken)
             => await eventReceiver.SubscribeAsync<string, int>(
                 "OnAttendeeCheckedIn_" + sessionId, cancellationToken);
     }

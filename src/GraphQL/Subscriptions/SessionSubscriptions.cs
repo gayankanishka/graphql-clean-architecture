@@ -1,5 +1,8 @@
+using ConferencePlanner.Application.Sessions.Queries.GetSessionById;
+using ConferencePlanner.Domain.Entities;
 using HotChocolate;
 using HotChocolate.Types;
+using MediatR;
 
 namespace ConferencePlanner.GraphQL.Subscriptions
 {
@@ -10,8 +13,8 @@ namespace ConferencePlanner.GraphQL.Subscriptions
         [Topic]
         public Task<Session> OnSessionScheduledAsync(
             [EventMessage] int sessionId,
-            SessionByIdDataLoader sessionById,
+            [Service] IMediator mediator,
             CancellationToken cancellationToken) =>
-            sessionById.LoadAsync(sessionId, cancellationToken);
+            mediator.Send(new GetSessionByIdQuery(sessionId), cancellationToken);
     }
 }
