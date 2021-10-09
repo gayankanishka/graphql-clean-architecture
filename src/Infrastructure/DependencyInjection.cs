@@ -50,7 +50,9 @@ namespace ConferencePlanner.Infrastructure
             builder.AddDataLoader<IAttendeeByIdDataLoader, AttendeeByIdDataLoader>()
                 .AddDataLoader<ISessionByIdDataLoader, SessionByIdDataLoader>()
                 .AddDataLoader<ISpeakerByIdDataLoader, SpeakerByIdDataLoader>()
-                .AddDataLoader<ITrackByIdDataLoader, TrackByIdDataLoader>();
+                .AddDataLoader<ITrackByIdDataLoader, TrackByIdDataLoader>()
+                .AddDataLoader<ISessionBySpeakerIdDataLoader, SessionBySpeakerIdDataLoader>()
+                .AddDataLoader<ISpeakerBySessionIdDataLoader, SpeakerBySessionIdDataLoader>();
 
             return builder;
         }

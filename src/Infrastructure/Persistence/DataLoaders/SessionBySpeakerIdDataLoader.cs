@@ -1,10 +1,11 @@
+using ConferencePlanner.Application.Common.Interfaces;
 using ConferencePlanner.Domain.Entities;
 using GreenDonut;
 using Microsoft.EntityFrameworkCore;
 
 namespace ConferencePlanner.Infrastructure.Persistence.DataLoaders
 {
-    internal class SessionBySpeakerIdDataLoader : GroupedDataLoader<int, Session>
+    internal class SessionBySpeakerIdDataLoader : GroupedDataLoader<int, Session>, ISessionBySpeakerIdDataLoader
     {
         private static readonly string _sessionCacheKey = GetCacheKeyType<SessionByIdDataLoader>();
         private readonly IDbContextFactory<ApplicationDbContext> _dbContextFactory;
@@ -36,6 +37,30 @@ namespace ConferencePlanner.Infrastructure.Persistence.DataLoaders
             TryAddToCache(_sessionCacheKey, list, item => item.SessionId, item => item.Session!);
 
             return list.ToLookup(t => t.SpeakerId, t => t.Session!);
+        }
+
+        public Task<Session> LoadAsync(int key, CancellationToken cancellationToken = new CancellationToken())
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<IReadOnlyList<Session>> LoadAsync(IReadOnlyCollection<int> keys, 
+            CancellationToken cancellationToken = new CancellationToken())
+        {
+            var result = await base.LoadAsync(keys, cancellationToken);
+            var sessions = new List<Session>();
+
+            foreach (var r in result)
+            {
+                sessions.AddRange(r);
+            }
+
+            return sessions;
+        }
+
+        public void Set(int key, Task<Session> value)
+        {
+            throw new NotImplementedException();
         }
     }
 }
