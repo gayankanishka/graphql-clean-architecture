@@ -1,4 +1,3 @@
-using System.Runtime.CompilerServices;
 using ConferencePlanner.Application.Sessions.Queries.GetSessionsBySpeakerId;
 using ConferencePlanner.Application.Speakers.Queries.GetSpeakerById;
 using ConferencePlanner.Domain.Entities;
