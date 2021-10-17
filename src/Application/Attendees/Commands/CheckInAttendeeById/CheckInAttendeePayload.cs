@@ -1,7 +1,6 @@
 using ConferencePlanner.Application.Sessions.Queries.GetSessionById;
 using ConferencePlanner.Domain.Common;
 using ConferencePlanner.Domain.Entities;
-using ConferencePlanner.Domain.Payloads;
 using HotChocolate;
 using MediatR;
 

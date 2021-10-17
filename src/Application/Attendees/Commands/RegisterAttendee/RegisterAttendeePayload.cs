@@ -1,6 +1,5 @@
 using ConferencePlanner.Domain.Common;
 using ConferencePlanner.Domain.Entities;
-using ConferencePlanner.Domain.Payloads;
 
 namespace ConferencePlanner.Application.Attendees.Commands.RegisterAttendee
 {

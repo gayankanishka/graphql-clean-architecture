@@ -1,7 +1,6 @@
 using ConferencePlanner.Application.Attendees.Commands.CheckInAttendeeById;
 using ConferencePlanner.Application.Attendees.Commands.RegisterAttendee;
 using ConferencePlanner.Domain.Common;
-using ConferencePlanner.Domain.Payloads;
 using HotChocolate;
 using HotChocolate.Subscriptions;
 using HotChocolate.Types;

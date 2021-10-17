@@ -1,7 +1,7 @@
 using ConferencePlanner.Domain.Common;
 using ConferencePlanner.Domain.Entities;
 
-namespace ConferencePlanner.Domain.Payloads
+namespace ConferencePlanner.Application.Attendees
 {
     public class AttendeePayloadBase : Payload
     {
