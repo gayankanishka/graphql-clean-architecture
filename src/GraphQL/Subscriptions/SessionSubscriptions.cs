@@ -4,17 +4,18 @@ using HotChocolate;
 using HotChocolate.Types;
 using MediatR;
 
-namespace ConferencePlanner.GraphQL.Subscriptions
+namespace ConferencePlanner.GraphQL.Subscriptions;
+
+[ExtendObjectType(OperationTypeNames.Subscription)]
+public class SessionSubscriptions
 {
-    [ExtendObjectType(OperationTypeNames.Subscription)]
-    public class SessionSubscriptions
+    [Subscribe]
+    [Topic]
+    public Task<Session> OnSessionScheduledAsync(
+        [EventMessage] int sessionId,
+        [Service] IMediator mediator,
+        CancellationToken cancellationToken)
     {
-        [Subscribe]
-        [Topic]
-        public Task<Session> OnSessionScheduledAsync(
-            [EventMessage] int sessionId,
-            [Service] IMediator mediator,
-            CancellationToken cancellationToken) =>
-            mediator.Send(new GetSessionByIdQuery(sessionId), cancellationToken);
+        return mediator.Send(new GetSessionByIdQuery(sessionId), cancellationToken);
     }
 }

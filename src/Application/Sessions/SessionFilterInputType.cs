@@ -1,14 +1,13 @@
 using ConferencePlanner.Domain.Entities;
 using HotChocolate.Data.Filters;
 
-namespace ConferencePlanner.Application.Sessions
+namespace ConferencePlanner.Application.Sessions;
+
+public class SessionFilterInputType : FilterInputType<Session>
 {
-    public class SessionFilterInputType : FilterInputType<Session>
+    protected override void Configure(IFilterInputTypeDescriptor<Session> descriptor)
     {
-        protected override void Configure(IFilterInputTypeDescriptor<Session> descriptor)
-        {
-            descriptor.Ignore(t => t.Id);
-            descriptor.Ignore(t => t.TrackId);
-        }
+        descriptor.Ignore(t => t.Id);
+        descriptor.Ignore(t => t.TrackId);
     }
 }

@@ -6,33 +6,38 @@ using HotChocolate;
 using HotChocolate.Types.Relay;
 using MediatR;
 
-namespace ConferencePlanner.Application.Attendees
+namespace ConferencePlanner.Application.Attendees;
+
+public class SessionAttendeeCheckIn
 {
-    public class SessionAttendeeCheckIn
+    public SessionAttendeeCheckIn(int attendeeId, int sessionId)
     {
-        public SessionAttendeeCheckIn(int attendeeId, int sessionId)
-        {
-            AttendeeId = attendeeId;
-            SessionId = sessionId;
-        }
+        AttendeeId = attendeeId;
+        SessionId = sessionId;
+    }
 
-        [ID(nameof(Attendee))] public int AttendeeId { get; }
+    [ID(nameof(Attendee))] public int AttendeeId { get; }
 
-        [ID(nameof(Session))] public int SessionId { get; }
+    [ID(nameof(Session))] public int SessionId { get; }
 
-        public async Task<int> CheckInCountAsync(
-            [Service] IMediator mediator,
-            CancellationToken cancellationToken)
-            => await mediator.Send(new GetCheckInCountQuery(SessionId), cancellationToken);
+    public async Task<int> CheckInCountAsync(
+        [Service] IMediator mediator,
+        CancellationToken cancellationToken)
+    {
+        return await mediator.Send(new GetCheckInCountQuery(SessionId), cancellationToken);
+    }
 
-        public async Task<Attendee> GetAttendeeAsync(
-            [Service] IMediator mediator,
-            CancellationToken cancellationToken)
-            => await mediator.Send(new GetAttendeeByIdQuery(AttendeeId), cancellationToken);
+    public async Task<Attendee> GetAttendeeAsync(
+        [Service] IMediator mediator,
+        CancellationToken cancellationToken)
+    {
+        return await mediator.Send(new GetAttendeeByIdQuery(AttendeeId), cancellationToken);
+    }
 
-        public async Task<Session> GetSessionAsync(
-            [Service] IMediator mediator,
-            CancellationToken cancellationToken)
-            => await mediator.Send(new GetSessionByIdQuery(SessionId), cancellationToken);
+    public async Task<Session> GetSessionAsync(
+        [Service] IMediator mediator,
+        CancellationToken cancellationToken)
+    {
+        return await mediator.Send(new GetSessionByIdQuery(SessionId), cancellationToken);
     }
 }

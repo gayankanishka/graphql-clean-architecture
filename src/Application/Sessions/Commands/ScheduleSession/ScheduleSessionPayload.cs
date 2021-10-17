@@ -5,42 +5,35 @@ using ConferencePlanner.Domain.Entities;
 using HotChocolate;
 using MediatR;
 
-namespace ConferencePlanner.Application.Sessions.Commands.ScheduleSession
+namespace ConferencePlanner.Application.Sessions.Commands.ScheduleSession;
+
+public class ScheduleSessionPayload : SessionPayloadBase
 {
-    public class ScheduleSessionPayload : SessionPayloadBase
+    public ScheduleSessionPayload(Session session)
+        : base(session)
     {
-        public ScheduleSessionPayload(Session session)
-            : base(session)
-        {
-        }
+    }
 
-        public ScheduleSessionPayload(UserError error)
-            : base(new[] { error })
-        {
-        }
+    public ScheduleSessionPayload(UserError error)
+        : base(new[] { error })
+    {
+    }
 
-        public async Task<Track?> GetTrackAsync(
-            [Service] IMediator mediator,
-            CancellationToken cancellationToken)
-        {
-            if (Session is null)
-            {
-                return null;
-            }
+    public async Task<Track?> GetTrackAsync(
+        [Service] IMediator mediator,
+        CancellationToken cancellationToken)
+    {
+        if (Session is null) return null;
 
-            return await mediator.Send(new GetTrackByIdQuery(Session.Id), cancellationToken);
-        }
+        return await mediator.Send(new GetTrackByIdQuery(Session.Id), cancellationToken);
+    }
 
-        public async Task<IEnumerable<Speaker>?> GetSpeakersAsync(
-            [Service] IMediator mediator,
-            CancellationToken cancellationToken)
-        {
-            if (Session is null)
-            {
-                return null;
-            }
+    public async Task<IEnumerable<Speaker>?> GetSpeakersAsync(
+        [Service] IMediator mediator,
+        CancellationToken cancellationToken)
+    {
+        if (Session is null) return null;
 
-            return await mediator.Send(new GetSpeakersBySessionIdQuery(Session.Id), cancellationToken);
-        }
+        return await mediator.Send(new GetSpeakersBySessionIdQuery(Session.Id), cancellationToken);
     }
 }

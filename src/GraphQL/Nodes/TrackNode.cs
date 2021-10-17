@@ -7,26 +7,32 @@ using HotChocolate.Types;
 using HotChocolate.Types.Relay;
 using MediatR;
 
-namespace ConferencePlanner.GraphQL.Nodes
+namespace ConferencePlanner.GraphQL.Nodes;
+
+[Node]
+[ExtendObjectType(typeof(Track))]
+public class TrackNode
 {
-    [Node]
-    [ExtendObjectType(typeof(Track))]
-    public class TrackNode
+    [UseUpperCase]
+    public string GetName([Parent] Track track)
     {
-        [UseUpperCase]
-        public string GetName([Parent] Track track) => track.Name!;
+        return track.Name!;
+    }
 
-        [UsePaging(ConnectionName = "TrackSessions")]
-        public Task<IQueryable<Session>> GetSessions(
-            [Parent] Track track,
-            [Service] IMediator mediator)
-            => mediator.Send(new GetSessionsByTrackQuery(track.Id));
+    [UsePaging(ConnectionName = "TrackSessions")]
+    public Task<IQueryable<Session>> GetSessions(
+        [Parent] Track track,
+        [Service] IMediator mediator)
+    {
+        return mediator.Send(new GetSessionsByTrackQuery(track.Id));
+    }
 
-        [NodeResolver]
-        public static Task<Track> GetTrackByIdAsync(
-            GetTrackByIdQuery input,
-            [Service] IMediator mediator,
-            CancellationToken cancellationToken)
-            => mediator.Send(input, cancellationToken);
+    [NodeResolver]
+    public static Task<Track> GetTrackByIdAsync(
+        GetTrackByIdQuery input,
+        [Service] IMediator mediator,
+        CancellationToken cancellationToken)
+    {
+        return mediator.Send(input, cancellationToken);
     }
 }

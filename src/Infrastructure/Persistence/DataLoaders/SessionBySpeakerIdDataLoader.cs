@@ -3,64 +3,60 @@ using ConferencePlanner.Domain.Entities;
 using GreenDonut;
 using Microsoft.EntityFrameworkCore;
 
-namespace ConferencePlanner.Infrastructure.Persistence.DataLoaders
+namespace ConferencePlanner.Infrastructure.Persistence.DataLoaders;
+
+internal class SessionBySpeakerIdDataLoader : GroupedDataLoader<int, Session>, ISessionBySpeakerIdDataLoader
 {
-    internal class SessionBySpeakerIdDataLoader : GroupedDataLoader<int, Session>, ISessionBySpeakerIdDataLoader
+    private static readonly string _sessionCacheKey = GetCacheKeyType<SessionByIdDataLoader>();
+    private readonly IDbContextFactory<ApplicationDbContext> _dbContextFactory;
+
+    public SessionBySpeakerIdDataLoader(
+        IDbContextFactory<ApplicationDbContext> dbContextFactory,
+        IBatchScheduler batchScheduler,
+        DataLoaderOptions options)
+        : base(batchScheduler, options)
     {
-        private static readonly string _sessionCacheKey = GetCacheKeyType<SessionByIdDataLoader>();
-        private readonly IDbContextFactory<ApplicationDbContext> _dbContextFactory;
+        _dbContextFactory = dbContextFactory ??
+                            throw new ArgumentNullException(nameof(dbContextFactory));
+    }
 
-        public SessionBySpeakerIdDataLoader(
-            IDbContextFactory<ApplicationDbContext> dbContextFactory,
-            IBatchScheduler batchScheduler,
-            DataLoaderOptions options)
-            : base(batchScheduler, options)
-        {
-            _dbContextFactory = dbContextFactory ??
-                                throw new ArgumentNullException(nameof(dbContextFactory));
-        }
+    protected override async Task<ILookup<int, Session>> LoadGroupedBatchAsync(
+        IReadOnlyList<int> keys,
+        CancellationToken cancellationToken)
+    {
+        await using var dbContext =
+            await _dbContextFactory.CreateDbContextAsync(cancellationToken);
 
-        protected override async Task<ILookup<int, Session>> LoadGroupedBatchAsync(
-            IReadOnlyList<int> keys,
-            CancellationToken cancellationToken)
-        {
-            await using ApplicationDbContext dbContext =
-                await _dbContextFactory.CreateDbContextAsync(cancellationToken);
+        var list = await dbContext.Speakers
+            .Where(s => keys.Contains(s.Id))
+            .Include(s => s.SessionSpeakers)
+            .SelectMany(s => s.SessionSpeakers)
+            .Include(s => s.Session)
+            .ToListAsync(cancellationToken);
 
-            List<SessionSpeaker> list = await dbContext.Speakers
-                .Where(s => keys.Contains(s.Id))
-                .Include(s => s.SessionSpeakers)
-                .SelectMany(s => s.SessionSpeakers)
-                .Include(s => s.Session)
-                .ToListAsync(cancellationToken);
+        TryAddToCache(_sessionCacheKey, list, item => item.SessionId, item => item.Session!);
 
-            TryAddToCache(_sessionCacheKey, list, item => item.SessionId, item => item.Session!);
+        return list.ToLookup(t => t.SpeakerId, t => t.Session!);
+    }
 
-            return list.ToLookup(t => t.SpeakerId, t => t.Session!);
-        }
+    public Task<Session> LoadAsync(int key, CancellationToken cancellationToken = new())
+    {
+        throw new NotImplementedException();
+    }
 
-        public Task<Session> LoadAsync(int key, CancellationToken cancellationToken = new CancellationToken())
-        {
-            throw new NotImplementedException();
-        }
+    public async Task<IReadOnlyList<Session>> LoadAsync(IReadOnlyCollection<int> keys,
+        CancellationToken cancellationToken = new())
+    {
+        var result = await base.LoadAsync(keys, cancellationToken);
+        var sessions = new List<Session>();
 
-        public async Task<IReadOnlyList<Session>> LoadAsync(IReadOnlyCollection<int> keys,
-            CancellationToken cancellationToken = new CancellationToken())
-        {
-            var result = await base.LoadAsync(keys, cancellationToken);
-            var sessions = new List<Session>();
+        foreach (var r in result) sessions.AddRange(r);
 
-            foreach (var r in result)
-            {
-                sessions.AddRange(r);
-            }
+        return sessions;
+    }
 
-            return sessions;
-        }
-
-        public void Set(int key, Task<Session> value)
-        {
-            throw new NotImplementedException();
-        }
+    public void Set(int key, Task<Session> value)
+    {
+        throw new NotImplementedException();
     }
 }

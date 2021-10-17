@@ -2,36 +2,33 @@ using ConferencePlanner.Application.Common.Interfaces;
 using ConferencePlanner.Domain.Entities;
 using MediatR;
 
-namespace ConferencePlanner.Application.Sessions.Commands.AddSession
+namespace ConferencePlanner.Application.Sessions.Commands.AddSession;
+
+public class AddSessionCommandHandler : IRequestHandler<AddSessionCommand, Session>
 {
-    public class AddSessionCommandHandler : IRequestHandler<AddSessionCommand, Session>
+    private readonly ISessionRepository _repository;
+
+    public AddSessionCommandHandler(ISessionRepository repository)
     {
-        private readonly ISessionRepository _repository;
+        _repository = repository ?? throw new ArgumentNullException(nameof(repository));
+    }
 
-        public AddSessionCommandHandler(ISessionRepository repository)
+    public async Task<Session> Handle(AddSessionCommand request, CancellationToken cancellationToken)
+    {
+        var session = new Session
         {
-            _repository = repository ?? throw new ArgumentNullException(nameof(repository));
-        }
+            Title = request.Title,
+            Abstract = request.Abstract
+        };
 
-        public async Task<Session> Handle(AddSessionCommand request, CancellationToken cancellationToken)
-        {
-            var session = new Session
+        foreach (var speakerId in request.SpeakerIds)
+            session.SessionSpeakers.Add(new SessionSpeaker
             {
-                Title = request.Title,
-                Abstract = request.Abstract,
-            };
+                SpeakerId = speakerId
+            });
 
-            foreach (int speakerId in request.SpeakerIds)
-            {
-                session.SessionSpeakers.Add(new SessionSpeaker
-                {
-                    SpeakerId = speakerId
-                });
-            }
+        await _repository.AddSessionAsync(session, cancellationToken);
 
-            await _repository.AddSessionAsync(session, cancellationToken);
-
-            return session;
-        }
+        return session;
     }
 }
