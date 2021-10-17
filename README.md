@@ -16,7 +16,7 @@ What's included:
 - [Hot Chocolate](https://chillicream.com/docs/hotchocolate)
 - [MediatR](https://github.com/jbogard/MediatR)
 - [EF Core](https://docs.microsoft.com/en-us/ef/core/)
-- [Npgsql](https://www.npgsql.org/efcore/index.html)
+- [SqLight](https://docs.microsoft.com/en-us/dotnet/standard/data/sqlite/?tabs=netcore-cli)
 
 ## Table of Content
 
