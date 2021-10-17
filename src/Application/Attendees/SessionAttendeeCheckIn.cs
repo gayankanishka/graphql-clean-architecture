@@ -1,4 +1,5 @@
 using ConferencePlanner.Application.Attendees.Queries.GetAttendeeById;
+using ConferencePlanner.Application.Attendees.Queries.GetCheckInCount;
 using ConferencePlanner.Application.Sessions.Queries.GetSessionById;
 using ConferencePlanner.Domain.Entities;
 using HotChocolate;
@@ -15,29 +16,23 @@ namespace ConferencePlanner.Application.Attendees
             SessionId = sessionId;
         }
 
-        [ID(nameof(Attendee))]
-        public int AttendeeId { get; }
+        [ID(nameof(Attendee))] public int AttendeeId { get; }
 
-        [ID(nameof(Session))]
-        public int SessionId { get; }
+        [ID(nameof(Session))] public int SessionId { get; }
 
-        // [UseApplicationDbContext]
-        // public async Task<int> CheckInCountAsync(
-        //     [ScopedService] ApplicationDbContext context,
-        //     CancellationToken cancellationToken) 
-        //     => await context.Sessions
-        //         .Where(session => session.Id == SessionId)
-        //         .SelectMany(session => session.SessionAttendees)
-        //         .CountAsync(cancellationToken);
-        //
+        public async Task<int> CheckInCountAsync(
+            [Service] IMediator mediator,
+            CancellationToken cancellationToken)
+            => await mediator.Send(new GetCheckInCountQuery(SessionId), cancellationToken);
+
         public async Task<Attendee> GetAttendeeAsync(
             [Service] IMediator mediator,
-            CancellationToken cancellationToken) 
+            CancellationToken cancellationToken)
             => await mediator.Send(new GetAttendeeByIdQuery(AttendeeId), cancellationToken);
-        
+
         public async Task<Session> GetSessionAsync(
             [Service] IMediator mediator,
-            CancellationToken cancellationToken) 
+            CancellationToken cancellationToken)
             => await mediator.Send(new GetSessionByIdQuery(SessionId), cancellationToken);
     }
 }

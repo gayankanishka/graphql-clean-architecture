@@ -1,3 +1,4 @@
+using ConferencePlanner.Application.Speakers.Queries.GetSpeakersBySessionId;
 using ConferencePlanner.Application.Tracks.Queries.GetTrackById;
 using ConferencePlanner.Domain.Common;
 using ConferencePlanner.Domain.Entities;
@@ -30,10 +31,8 @@ namespace ConferencePlanner.Application.Sessions.Commands.ScheduleSession
             return await mediator.Send(new GetTrackByIdQuery(Session.Id), cancellationToken);
         }
 
-        [UseApplicationDbContext]
         public async Task<IEnumerable<Speaker>?> GetSpeakersAsync(
-            [ScopedService] ApplicationDbContext dbContext,
-            SpeakerByIdDataLoader speakerById,
+            [Service] IMediator mediator,
             CancellationToken cancellationToken)
         {
             if (Session is null)
@@ -41,13 +40,7 @@ namespace ConferencePlanner.Application.Sessions.Commands.ScheduleSession
                 return null;
             }
 
-            int[] speakerIds = await dbContext.Sessions
-                .Where(s => s.Id == Session.Id)
-                .Include(s => s.SessionSpeakers)
-                .SelectMany(s => s.SessionSpeakers.Select(t => t.SpeakerId))
-                .ToArrayAsync(cancellationToken);
-
-            return await speakerById.LoadAsync(speakerIds, cancellationToken);
+            return await mediator.Send(new GetSpeakersBySessionIdQuery(Session.Id), cancellationToken);
         }
     }
 }

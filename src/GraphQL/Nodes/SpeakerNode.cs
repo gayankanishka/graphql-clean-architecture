@@ -1,4 +1,6 @@
+using System.Runtime.CompilerServices;
 using ConferencePlanner.Application.Sessions.Queries.GetSessionsBySpeakerId;
+using ConferencePlanner.Application.Speakers.Queries.GetSessionSpeakers;
 using ConferencePlanner.Application.Speakers.Queries.GetSpeakerById;
 using ConferencePlanner.Domain.Entities;
 using HotChocolate;
@@ -29,34 +31,30 @@ namespace ConferencePlanner.GraphQL.Nodes
             return await mediator.Send(new GetSessionsBySpeakerIdQuery(speaker.Id), cancellationToken);
         }
 
-        // public async IAsyncEnumerable<Session> GetSessionsStreamAsync(
-        //     [Parent] Speaker speaker,
-        //     [Service] IMediator mediator,
-        //     [EnumeratorCancellation] CancellationToken cancellationToken)
-        // {
-        //     var random = new Random();
-        //
-        //     await Task.Delay(random.Next(500, 1000), cancellationToken);
-        //
-        //     await using var context = contextFactory.CreateDbContext();
-        //
-        //     var stream = (IAsyncEnumerable<SessionSpeaker>)context.Speakers
-        //         .Where(s => s.Id == speaker.Id)
-        //         .Include(s => s.SessionSpeakers)
-        //         .SelectMany(s => s.SessionSpeakers)
-        //         .Include(s => s.Session);
-        //
-        //     await foreach (var item in stream.WithCancellation(cancellationToken))
-        //     {
-        //         if (item.Session is not null)
-        //         {
-        //             yield return item.Session;
-        //         }
-        //
-        //         await Task.Delay(random.Next(100, 300), cancellationToken);
-        //     }
-        // }
-        
+        public async IAsyncEnumerable<Session> GetSessionsStreamAsync(
+            [Parent] Speaker speaker,
+            [Service] IMediator mediator,
+            [EnumeratorCancellation] CancellationToken cancellationToken)
+        {
+            var random = new Random();
+            await Task.Delay(random.Next(500, 1000), cancellationToken);
+
+            var sessionSpeakers =
+                await mediator.Send(new GetSessionSpeakersQuery(speaker.Id), cancellationToken);
+
+            var stream = (IAsyncEnumerable<SessionSpeaker>)sessionSpeakers;
+
+            await foreach (var item in stream.WithCancellation(cancellationToken))
+            {
+                if (item.Session is not null)
+                {
+                    yield return item.Session;
+                }
+
+                await Task.Delay(random.Next(100, 300), cancellationToken);
+            }
+        }
+
         [NodeResolver]
         public static Task<Speaker> GetSpeakerByIdAsync(
             GetSpeakerByIdQuery input,
