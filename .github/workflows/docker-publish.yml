@@ -35,7 +35,7 @@ jobs:
           context: ./
           file: ./src/GraphQL/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/garphql-clean-architecture:latest
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/graphql-clean-architecture:latest
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
