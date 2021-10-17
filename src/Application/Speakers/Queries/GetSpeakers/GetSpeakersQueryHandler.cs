@@ -20,4 +20,3 @@ namespace ConferencePlanner.Application.Speakers.Queries.GetSpeakers
         }
     }
 }
-

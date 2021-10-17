@@ -16,31 +16,31 @@ namespace ConferencePlanner.GraphQL.Queries
         [UsePaging]
         public async Task<IQueryable<Track>> GetTracks(
             [Service] IMediator mediator,
-            CancellationToken cancellationToken) 
+            CancellationToken cancellationToken)
             => await mediator.Send(new GetTracksQuery(), cancellationToken);
 
         public async Task<Track?> GetTrackByNameAsync(
             GetTrackByNameQuery input,
             [Service] IMediator mediator,
-            CancellationToken cancellationToken) 
+            CancellationToken cancellationToken)
             => await mediator.Send(input, cancellationToken);
 
         public async Task<IEnumerable<Track>> GetTrackByNamesAsync(
             GetTracksByNamesQuery input,
             [Service] IMediator mediator,
-            CancellationToken cancellationToken) 
+            CancellationToken cancellationToken)
             => await mediator.Send(input, cancellationToken);
 
         public async Task<Track> GetTrackByIdAsync(
             GetTrackByIdQuery input,
             [Service] IMediator mediator,
-            CancellationToken cancellationToken) 
+            CancellationToken cancellationToken)
             => await mediator.Send(input, cancellationToken);
 
         public async Task<IEnumerable<Track>> GetSessionsByIdAsync(
             GetTracksByIdsQuery input,
             [Service] IMediator mediator,
-            CancellationToken cancellationToken) 
+            CancellationToken cancellationToken)
             => await mediator.Send(input, cancellationToken);
     }
 }

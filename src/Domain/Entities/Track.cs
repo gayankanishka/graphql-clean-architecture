@@ -7,11 +7,9 @@ namespace ConferencePlanner.Domain.Entities
     {
         public int Id { get; set; }
 
-        [Required]
-        [StringLength(200)]
-        public string? Name { get; set; }
+        [Required] [StringLength(200)] public string? Name { get; set; }
 
-        public ICollection<Session> Sessions { get; set; } = 
+        public ICollection<Session> Sessions { get; set; } =
             new List<Session>();
     }
 }

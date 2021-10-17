@@ -39,7 +39,7 @@ namespace ConferencePlanner.GraphQL.Mutations
                 return new ModifySpeakerPayload(
                     new UserError("Speaker with id not found.", "SPEAKER_NOT_FOUND"));
             }
-            
+
             return new ModifySpeakerPayload(speaker);
         }
     }

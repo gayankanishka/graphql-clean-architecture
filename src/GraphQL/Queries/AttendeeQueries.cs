@@ -20,7 +20,7 @@ namespace ConferencePlanner.GraphQL.Queries
         [UsePaging]
         public async Task<IQueryable<Attendee>> GetAttendeesAsync(
             [Service] IMediator mediator,
-            CancellationToken cancellationToken) 
+            CancellationToken cancellationToken)
             => await mediator.Send(new GetAttendeesQuery(), cancellationToken);
 
         /// <summary>
@@ -33,13 +33,13 @@ namespace ConferencePlanner.GraphQL.Queries
         public async Task<Attendee> GetAttendeeByIdAsync(
             GetAttendeeByIdQuery input,
             [Service] IMediator mediator,
-            CancellationToken cancellationToken) 
+            CancellationToken cancellationToken)
             => await mediator.Send(input, cancellationToken);
 
         public async Task<IEnumerable<Attendee>> GetAttendeesByIdAsync(
             GetAttendeesByIdsQuery input,
             [Service] IMediator mediator,
-            CancellationToken cancellationToken) 
+            CancellationToken cancellationToken)
             => await mediator.Send(input, cancellationToken);
     }
 }

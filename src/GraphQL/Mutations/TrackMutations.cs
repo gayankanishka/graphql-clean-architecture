@@ -32,7 +32,7 @@ namespace ConferencePlanner.GraphQL.Mutations
             {
                 throw new GraphQLException("Track not found.");
             }
-            
+
             return new RenameTrackPayload(track);
         }
     }

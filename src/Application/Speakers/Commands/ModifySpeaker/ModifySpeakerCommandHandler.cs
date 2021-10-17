@@ -21,7 +21,7 @@ namespace ConferencePlanner.Application.Speakers.Commands.ModifySpeaker
             {
                 return speaker;
             }
-            
+
             if (request.Name.HasValue)
             {
                 speaker.Name = request.Name;
@@ -40,6 +40,5 @@ namespace ConferencePlanner.Application.Speakers.Commands.ModifySpeaker
             await _repository.UpdateSpeakerAsync(speaker, cancellationToken);
             return speaker;
         }
-    } 
+    }
 }
-

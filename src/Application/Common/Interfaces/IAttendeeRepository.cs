@@ -10,4 +10,3 @@ namespace ConferencePlanner.Application.Common.Interfaces
         Task UpdateAttendeeAsync(Attendee attendee, CancellationToken cancellationToken);
     }
 }
-

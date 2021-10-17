@@ -6,4 +6,3 @@ namespace ConferencePlanner.Application.Speakers.Queries.GetSpeakerById
 {
     public record GetSpeakerByIdQuery([ID(nameof(Speaker))] int Id) : IRequest<Speaker>;
 }
-

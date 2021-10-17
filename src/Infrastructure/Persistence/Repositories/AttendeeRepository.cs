@@ -39,4 +39,3 @@ namespace ConferencePlanner.Infrastructure.Persistence.Repositories
         }
     }
 }
-

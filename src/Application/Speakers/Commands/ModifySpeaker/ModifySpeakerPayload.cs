@@ -11,7 +11,7 @@ namespace ConferencePlanner.Application.Speakers.Commands.ModifySpeaker
         }
 
         public ModifySpeakerPayload(UserError error)
-            : base(new [] { error })
+            : base(new[] { error })
         {
         }
     }

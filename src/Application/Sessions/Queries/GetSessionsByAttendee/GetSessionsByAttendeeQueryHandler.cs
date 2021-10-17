@@ -15,7 +15,7 @@ namespace ConferencePlanner.Application.Sessions.Queries.GetSessionsByAttendee
             _dataLoader = dataLoader ?? throw new ArgumentNullException(nameof(dataLoader));
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
         }
-        
+
         public async Task<IEnumerable<Session>> Handle(GetSessionsByAttendeeQuery request,
             CancellationToken cancellationToken)
         {
@@ -24,9 +24,8 @@ namespace ConferencePlanner.Application.Sessions.Queries.GetSessionsByAttendee
                 .Include(a => a.SessionsAttendees)
                 .SelectMany(a => a.SessionsAttendees.Select(t => t.SessionId))
                 .ToArrayAsync(cancellationToken);
-        
+
             return await _dataLoader.LoadAsync(speakerIds, cancellationToken);
         }
     }
 }
-

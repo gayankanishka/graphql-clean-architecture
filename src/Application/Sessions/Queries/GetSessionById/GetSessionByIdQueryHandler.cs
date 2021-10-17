@@ -19,4 +19,3 @@ namespace ConferencePlanner.Application.Sessions.Queries.GetSessionById
         }
     }
 }
-

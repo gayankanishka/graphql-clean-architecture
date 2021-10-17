@@ -36,9 +36,9 @@ You'll need the following tools:
 
 - [.NET](https://dotnet.microsoft.com/download), version `>=5`
 - One of the below IDE of your choice
-  - [Visual Studio](https://visualstudio.microsoft.com/), version `>=2019`
-  - [JetBrains Rider](https://jetbrains.com/rider/), version `>=2020`
-  - [Visual Studio Code](https://code.visualstudio.com/)
+    - [Visual Studio](https://visualstudio.microsoft.com/), version `>=2019`
+    - [JetBrains Rider](https://jetbrains.com/rider/), version `>=2020`
+    - [Visual Studio Code](https://code.visualstudio.com/)
 
 ### Development Environment Setup
 

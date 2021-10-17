@@ -27,4 +27,3 @@ namespace ConferencePlanner.Application.Speakers.Commands.AddSpeaker
         }
     }
 }
-

@@ -6,4 +6,3 @@ namespace ConferencePlanner.Application.Tracks.Queries.GetTrackById
 {
     public record GetTrackByIdQuery([ID(nameof(Track))] int Id) : IRequest<Track>;
 }
-

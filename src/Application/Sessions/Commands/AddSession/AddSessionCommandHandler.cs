@@ -35,4 +35,3 @@ namespace ConferencePlanner.Application.Sessions.Commands.AddSession
         }
     }
 }
-

@@ -24,4 +24,3 @@ namespace ConferencePlanner.Application.Tracks.Queries.GetTrackByName
         }
     }
 }
-

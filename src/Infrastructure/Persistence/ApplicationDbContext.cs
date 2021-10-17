@@ -9,7 +9,7 @@ namespace ConferencePlanner.Infrastructure.Persistence
             : base(options)
         {
         }
-        
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder

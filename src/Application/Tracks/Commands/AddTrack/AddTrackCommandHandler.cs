@@ -16,10 +16,9 @@ namespace ConferencePlanner.Application.Tracks.Commands.AddTrack
         public async Task<Track> Handle(AddTrackCommand request, CancellationToken cancellationToken)
         {
             var track = new Track { Name = request.Name };
-            
+
             await _repository.AddTrackAsync(track, cancellationToken);
             return track;
         }
     }
 }
-

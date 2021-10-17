@@ -25,4 +25,3 @@ namespace ConferencePlanner.Application.Attendees.Queries.GetAttendeesBySessionI
         }
     }
 }
-

@@ -5,4 +5,3 @@ namespace ConferencePlanner.Application.Speakers.Queries.GetSpeakers
 {
     public record GetSpeakersQuery() : IRequest<IQueryable<Speaker>>;
 }
-

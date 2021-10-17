@@ -13,10 +13,10 @@ namespace ConferencePlanner.Application.Sessions.Queries.GetSessionsByIds
             _dataLoader = dataLoader;
         }
 
-        public async Task<IEnumerable<Session>> Handle(GetSessionsByIdsQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<Session>> Handle(GetSessionsByIdsQuery request,
+            CancellationToken cancellationToken)
         {
             return await _dataLoader.LoadAsync(request.Ids, cancellationToken);
         }
     }
 }
-

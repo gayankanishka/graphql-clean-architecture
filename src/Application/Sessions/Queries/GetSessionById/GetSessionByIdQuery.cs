@@ -6,4 +6,3 @@ namespace ConferencePlanner.Application.Sessions.Queries.GetSessionById
 {
     public record GetSessionByIdQuery([ID(nameof(Session))] int Id) : IRequest<Session>;
 }
-

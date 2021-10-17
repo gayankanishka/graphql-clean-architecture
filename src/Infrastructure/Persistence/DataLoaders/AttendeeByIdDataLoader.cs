@@ -15,15 +15,15 @@ namespace ConferencePlanner.Infrastructure.Persistence.DataLoaders
             DataLoaderOptions options)
             : base(batchScheduler, options)
         {
-            _dbContextFactory = dbContextFactory ?? 
-                throw new ArgumentNullException(nameof(dbContextFactory));
+            _dbContextFactory = dbContextFactory ??
+                                throw new ArgumentNullException(nameof(dbContextFactory));
         }
 
         protected override async Task<IReadOnlyDictionary<int, Attendee>> LoadBatchAsync(
             IReadOnlyList<int> keys,
             CancellationToken cancellationToken)
         {
-            await using ApplicationDbContext dbContext = 
+            await using ApplicationDbContext dbContext =
                 await _dbContextFactory.CreateDbContextAsync(cancellationToken);
 
             return await dbContext.Attendees

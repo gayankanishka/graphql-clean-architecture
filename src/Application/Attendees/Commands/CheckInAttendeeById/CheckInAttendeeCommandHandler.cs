@@ -21,7 +21,7 @@ namespace ConferencePlanner.Application.Attendees.Commands.CheckInAttendeeById
             {
                 return attendee;
             }
-            
+
             attendee.SessionsAttendees.Add(
                 new SessionAttendee
                 {

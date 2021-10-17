@@ -29,4 +29,3 @@ namespace ConferencePlanner.Application.Sessions.Commands.RenameSession
         }
     }
 }
-

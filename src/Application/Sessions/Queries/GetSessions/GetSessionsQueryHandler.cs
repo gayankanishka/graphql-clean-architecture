@@ -12,11 +12,10 @@ namespace ConferencePlanner.Application.Sessions.Queries.GetSessions
         {
             _repository = repository;
         }
-        
+
         public async Task<IQueryable<Session>> Handle(GetSessionsQuery request, CancellationToken cancellationToken)
         {
             return _repository.GetAllSessions();
         }
     }
 }
-

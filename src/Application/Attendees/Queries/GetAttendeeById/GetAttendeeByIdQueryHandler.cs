@@ -19,4 +19,3 @@ namespace ConferencePlanner.Application.Attendees.Queries.GetAttendeeById
         }
     }
 }
-

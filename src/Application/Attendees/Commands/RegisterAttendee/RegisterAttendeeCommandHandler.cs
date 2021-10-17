@@ -29,4 +29,3 @@ namespace ConferencePlanner.Application.Attendees.Commands.RegisterAttendee
         }
     }
 }
-

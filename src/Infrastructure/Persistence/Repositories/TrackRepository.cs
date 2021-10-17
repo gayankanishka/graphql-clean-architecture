@@ -18,7 +18,7 @@ namespace ConferencePlanner.Infrastructure.Persistence.Repositories
             await _context.Tracks.AddAsync(track, cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);
         }
-        
+
         public IQueryable<Track> GetAllTracks()
         {
             return _context.Tracks
@@ -39,4 +39,3 @@ namespace ConferencePlanner.Infrastructure.Persistence.Repositories
         }
     }
 }
-

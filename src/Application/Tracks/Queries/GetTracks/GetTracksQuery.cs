@@ -5,4 +5,3 @@ namespace ConferencePlanner.Application.Tracks.Queries.GetTracks
 {
     public record GetTracksQuery() : IRequest<IQueryable<Track>>;
 }
-

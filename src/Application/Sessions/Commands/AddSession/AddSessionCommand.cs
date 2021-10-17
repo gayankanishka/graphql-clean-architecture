@@ -7,6 +7,5 @@ namespace ConferencePlanner.Application.Sessions.Commands.AddSession
     public record AddSessionCommand(
         string Title,
         string? Abstract,
-        [property: ID(nameof(Speaker))]
-        IReadOnlyList<int> SpeakerIds) : IRequest<Session>;
+        [property: ID(nameof(Speaker))] IReadOnlyList<int> SpeakerIds) : IRequest<Session>;
 }

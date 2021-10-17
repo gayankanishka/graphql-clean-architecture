@@ -17,6 +17,5 @@ namespace ConferencePlanner.Application.Tracks.Queries.GetTrackById
         {
             return await _dataLoader.LoadAsync(request.Id, cancellationToken);
         }
-    }    
+    }
 }
-

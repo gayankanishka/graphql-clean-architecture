@@ -30,7 +30,7 @@ namespace ConferencePlanner.Application.Attendees.Commands.CheckInAttendeeById
             {
                 return await mediator.Send(new GetSessionByIdQuery(_sessionId.Value), cancellationToken);
             }
-        
+
             return null;
         }
     }

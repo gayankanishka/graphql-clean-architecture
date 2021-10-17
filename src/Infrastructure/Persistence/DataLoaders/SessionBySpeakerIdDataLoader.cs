@@ -17,7 +17,7 @@ namespace ConferencePlanner.Infrastructure.Persistence.DataLoaders
             : base(batchScheduler, options)
         {
             _dbContextFactory = dbContextFactory ??
-                throw new ArgumentNullException(nameof(dbContextFactory));
+                                throw new ArgumentNullException(nameof(dbContextFactory));
         }
 
         protected override async Task<ILookup<int, Session>> LoadGroupedBatchAsync(
@@ -44,7 +44,7 @@ namespace ConferencePlanner.Infrastructure.Persistence.DataLoaders
             throw new NotImplementedException();
         }
 
-        public async Task<IReadOnlyList<Session>> LoadAsync(IReadOnlyCollection<int> keys, 
+        public async Task<IReadOnlyList<Session>> LoadAsync(IReadOnlyCollection<int> keys,
             CancellationToken cancellationToken = new CancellationToken())
         {
             var result = await base.LoadAsync(keys, cancellationToken);

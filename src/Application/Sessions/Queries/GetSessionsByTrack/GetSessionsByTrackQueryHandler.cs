@@ -22,4 +22,3 @@ namespace ConferencePlanner.Application.Sessions.Queries.GetSessionsByTrack
         }
     }
 }
-

@@ -10,7 +10,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Payloads" />
+        <Folder Include="Payloads"/>
     </ItemGroup>
 
 </Project>

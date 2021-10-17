@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ConferencePlanner.Application.Tracks.Queries.GetTracksByNames
 {
-    public class GetTracksByNamesQueryHandler :IRequestHandler<GetTracksByNamesQuery, IEnumerable<Track>>
+    public class GetTracksByNamesQueryHandler : IRequestHandler<GetTracksByNamesQuery, IEnumerable<Track>>
     {
         private readonly ITrackRepository _repository;
 
@@ -22,4 +22,3 @@ namespace ConferencePlanner.Application.Tracks.Queries.GetTracksByNames
         }
     }
 }
-

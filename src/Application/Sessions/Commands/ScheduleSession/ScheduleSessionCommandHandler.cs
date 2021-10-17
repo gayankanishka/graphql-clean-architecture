@@ -28,4 +28,3 @@ namespace ConferencePlanner.Application.Sessions.Commands.ScheduleSession
         }
     }
 }
-
