@@ -26,7 +26,7 @@ namespace ConferencePlanner.Infrastructure
         {
             services.AddPooledDbContextFactory<ApplicationDbContext>(
                 (s, o) => o
-                    .UseSqlite("Data Source=conferences.db")
+                    .UseSqlite(configuration.GetConnectionString("LocalDbConnection"))
                     .UseLoggerFactory(s.GetRequiredService<ILoggerFactory>()));
 
             services.AddTransient<IAttendeeRepository>(_ =>
