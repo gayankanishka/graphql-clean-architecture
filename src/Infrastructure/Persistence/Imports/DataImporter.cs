@@ -6,9 +6,11 @@ namespace ConferencePlanner.Infrastructure.Persistence.Imports
 {
     public class DataImporter
     {
+        private const string DataFilePath = "../../data/NDC_London_2019.json";
+
         public async Task LoadDataAsync(ApplicationDbContext db)
         {
-            await using var stream = File.OpenRead("NDC_London_2019.json");
+            await using var stream = File.OpenRead(DataFilePath);
             using var reader = new JsonTextReader(new StreamReader(stream));
 
             JArray conference = await JArray.LoadAsync(reader);
@@ -42,7 +44,7 @@ namespace ConferencePlanner.Infrastructure.Persistence.Imports
                             if (!speakers.TryGetValue(id, out Speaker? speaker))
                             {
                                 speaker = new Speaker
-                                { 
+                                {
                                     Name = speakerData["name"]!.ToString()
                                 };
 
