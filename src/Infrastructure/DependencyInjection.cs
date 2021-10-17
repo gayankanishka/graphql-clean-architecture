@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using static System.Boolean;
 
 namespace ConferencePlanner.Infrastructure;
 
@@ -24,10 +25,22 @@ public static class DependencyInjection
     public static IServiceCollection AddInfrastructure(this IServiceCollection services,
         IConfiguration configuration)
     {
-        services.AddPooledDbContextFactory<ApplicationDbContext>(
-            (s, o) => o
-                .UseSqlite(configuration.GetConnectionString("LocalDbConnection"))
-                .UseLoggerFactory(s.GetRequiredService<ILoggerFactory>()));
+        TryParse(configuration.GetSection("UseSqlite").Value, out bool isSqlite);
+        
+        if (isSqlite)
+        {
+            services.AddPooledDbContextFactory<ApplicationDbContext>(
+                (s, o) => o
+                    .UseSqlite(configuration.GetConnectionString("SqliteDbConnection"))
+                    .UseLoggerFactory(s.GetRequiredService<ILoggerFactory>()));
+        }
+        else
+        {
+            services.AddPooledDbContextFactory<ApplicationDbContext>(
+                (s, o) => o
+                    .UseNpgsql(configuration.GetConnectionString("PostgresDbConnection"))
+                    .UseLoggerFactory(s.GetRequiredService<ILoggerFactory>()));
+        }
 
         services.AddTransient<IAttendeeRepository>(_ =>
                 new AttendeeRepository(
