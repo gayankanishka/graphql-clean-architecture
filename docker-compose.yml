@@ -3,7 +3,7 @@ version: '3.4'
 services:
   grapghql-clean-architecture:
     container_name: grapghql-clean-architecture
-    image: ${DOCKER_REGISTRY-}grapghql-clean-architecture
+    image: gayankanishka/grapghql-clean-architecture
     build:
       context: .
       dockerfile: src/GraphQL/Dockerfile
