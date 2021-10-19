@@ -1,0 +1,13 @@
+version: '3.4'
+
+services:
+  grapghql:
+    environment:
+      - 'UseSqlite=false'
+      - 'ASPNETCORE_ENVIRONMENT=Production'
+      - 'ConnectionStrings__PostgresDbConnection=ADD_PRODUCTION_CONNECTION_STRING'
+    ports:
+      - '80:5000'
+    expose: 
+      - 80
+    restart: always

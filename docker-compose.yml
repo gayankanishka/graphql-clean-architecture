@@ -1,27 +1,13 @@
 version: '3.4'
 
 services:
-  grapghql-clean-architecture:
-    container_name: grapghql-clean-architecture
+  grapghql:
+    container_name: grapghql
     image: gayankanishka/graphql-clean-architecture
     build:
       context: .
       dockerfile: src/GraphQL/Dockerfile
-    environment:
-      - 'UseSqlite=false'
-      - 'ASPNETCORE_ENVIRONMENT=Development'
     ports:
       - '5000:5000'
-    depends_on:
-      - db
+      - '5001:5001'
     restart: on-failure
-    
-  db:
-    container_name: db
-    image: 'postgres:latest'
-    ports:
-      - '5432:5432'
-    environment:
-      POSTGRES_USER: 'postgres'
-      POSTGRES_PASSWORD: '1qaz2wsx@'
-      POSTGRES_DB: 'ConferencesDb'

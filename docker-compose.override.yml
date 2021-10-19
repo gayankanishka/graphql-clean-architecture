@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  grapghql:
+    environment:
+      - 'UseSqlite=True'
+      - 'ASPNETCORE_ENVIRONMENT=Development'
+      - 'ConnectionStrings__SqliteDbConnection=Data Source=conferences.db'
