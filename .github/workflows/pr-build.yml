@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - '.github/workflows/docker-publish.yml'
+      - '.github/workflows/pr-build.yml'
       - './src/**'
   workflow_dispatch:
 
