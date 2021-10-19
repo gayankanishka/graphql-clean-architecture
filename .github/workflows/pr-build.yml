@@ -6,7 +6,7 @@ on:
       - main
     paths:
       - '.github/workflows/pr-build.yml'
-      - './src/**'
+      - 'src/**'
   workflow_dispatch:
 
 jobs:
