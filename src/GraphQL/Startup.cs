@@ -42,9 +42,11 @@ public class Startup
 
         services.AddApplication();
         services.AddInfrastructure(Configuration);
-
+       
         // This adds the GraphQL server core service and declares a schema.
         services
+            .AddMemoryCache()
+            
             .AddGraphQLServer()
 
             // Next we add the types to our schema.
@@ -78,13 +80,13 @@ public class Startup
 
             // Since we are using subscriptions, we need to register a pub/sub system.
             // for our demo we are using a in-memory pub/sub system.
-            .AddInMemorySubscriptions();
+            .AddInMemorySubscriptions()
 
-        // Last we add support for persisted queries. 
-        // The first line adds the persisted query storage, 
-        // the second one the persisted query processing pipeline.
-        // .AddInMemoryQueryStorage()
-        // .UsePersistedQueryPipeline();
+            // Last we add support for automatic persisted queries. 
+            // The first line adds persisted query processing pipeline, 
+            // the second one adds the persisted query storage.
+            .UseAutomaticPersistedQueryPipeline()
+            .AddInMemoryQueryStorage();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
