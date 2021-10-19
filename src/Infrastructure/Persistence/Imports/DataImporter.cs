@@ -6,11 +6,9 @@ namespace ConferencePlanner.Infrastructure.Persistence.Imports;
 
 public class DataImporter
 {
-    private const string DataFilePath = "../../data/NDC_London_2019.json";
-
     public async Task LoadDataAsync(ApplicationDbContext db)
     {
-        await using var stream = File.OpenRead(DataFilePath);
+        await using var stream = File.OpenRead("NDC_London_2019.json");
         using var reader = new JsonTextReader(new StreamReader(stream));
 
         var conference = await JArray.LoadAsync(reader);
