@@ -1,5 +1,7 @@
 # GraphQL Clean Architecture with Hot Chocolate
 
+[![Build and Push to Docker Hub](https://github.com/gayankanishka/graphql-clean-architecture/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/gayankanishka/graphql-clean-architecture/actions/workflows/docker-publish.yml)
+
 ![chilli cream log](https://github.com/gayankanishka/graphql-clean-architecture/blob/533a59d7e96493b4d9e94f8fe08c04a4dc3f6af5/docs/assets/ChilliCream.svg?raw=true)
 
 The repository contains a backend of a simple Conference Planner. The backend serves as a GraphQL server. You could either use `Sqlite` or `Postgres` to persist the data. Application has docker container orchestration configured.
