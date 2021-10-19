@@ -1,12 +1,12 @@
-name: Build GraphQL Clean Architecture
+name: PR Build
 
 on:
-  push:
-    branches:
-      - main
   pull_request:
     branches:
       - main
+    paths:
+      - '.github/workflows/docker-publish.yml'
+      - './src/**'
   workflow_dispatch:
 
 jobs:
