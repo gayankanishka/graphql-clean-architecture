@@ -6,6 +6,7 @@ using ConferencePlanner.GraphQL.Subscriptions;
 using ConferencePlanner.Infrastructure;
 using ConferencePlanner.Infrastructure.Persistence.Imports;
 using HotChocolate.AspNetCore;
+using HotChocolate.AspNetCore.Voyager;
 
 namespace ConferencePlanner.GraphQL;
 
@@ -111,6 +112,8 @@ public class Startup
                     }
                 });
 
+            app.UseVoyager("/graphql","/graphql-voyager");
+            
             endpoints.MapGet("/", context =>
             {
                 context.Response.Redirect("/graphql", true);
