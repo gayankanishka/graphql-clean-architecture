@@ -1,14 +1,15 @@
-name: Push to Docker Hub
+name: Build and Push to Docker Hub
 
 on:
   push:
     branches: [main]
-  pull_request:
-    branches: [main]
+    paths:
+      - '.github/workflows/docker-publish.yml'
+      - './src/**'
   workflow_dispatch:
 
 jobs:
-  push:
+  build-and-push:
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -30,12 +31,11 @@ jobs:
       - name: Docker - setup layer cache
         uses: actions/cache@v2
         with:
-          path: /tmp/.buildx/cache
+          path: /tmp/.buildx-cache
           key: ${{ runner.os }}-buildx-${{ github.sha }}
           restore-keys: ${{ runner.os }}-buildx-
 
       - name: Docker - Build and push
-        id: docker_build
         uses: docker/build-push-action@v2
         with:
           context: ./
