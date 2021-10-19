@@ -2,7 +2,7 @@
 
 ![chilli cream log](https://github.com/gayankanishka/graphql-clean-architecture/blob/533a59d7e96493b4d9e94f8fe08c04a4dc3f6af5/docs/assets/ChilliCream.svg?raw=true)
 
-The repository contains a backend of a simple Conference Planner application. The backend serves as a GraphQL server. You could either use `Sqlite` or `Postgres` to persist the data. Application has docker container orchestration configured.
+The repository contains a backend of a simple Conference Planner. The backend serves as a GraphQL server. You could either use `Sqlite` or `Postgres` to persist the data. Application has docker container orchestration configured.
 
 > DISCLAIMER: Original non-layered solution could be found at [ChilliCream/graphql-workshop](https://github.com/ChilliCream/graphql-workshop). This repository focuses on applying the clean-architecture principles into the above solution. Also this repository contains some additional features.
 
@@ -23,12 +23,12 @@ What's included:
 ## Table of Content
 
 - [Quick Start](#quick-start)
-    - [Prerequisites](#prerequisites)
-    - [Development Environment Setup](#development-environment-setup)
-    - [Docker Configuration](#docker-configuration)
-    - [Database Configuration](#database-configuration)
-    - [Database Migrations](#database-migrations)
-    - [Build and run](#build-and-run-from-source)
+  - [Prerequisites](#prerequisites)
+  - [Development Environment Setup](#development-environment-setup)
+  - [Docker Configuration](#docker-configuration)
+  - [Database Configuration](#database-configuration)
+  - [Database Migrations](#database-migrations)
+  - [Build and run](#build-and-run-from-source)
 - [License](#license)
 
 ## Quick Start
@@ -41,9 +41,9 @@ You'll need the following tools:
 
 - [.NET](https://dotnet.microsoft.com/download), version `>=6`
 - One of the below IDE of your choice
-    - [Visual Studio](https://visualstudio.microsoft.com/), version `>=2022`
-    - [JetBrains Rider](https://jetbrains.com/rider/), version `>=2021.3`
-    - [Visual Studio Code](https://code.visualstudio.com/)
+  - [Visual Studio](https://visualstudio.microsoft.com/), version `>=2022`
+  - [JetBrains Rider](https://jetbrains.com/rider/), version `>=2021.3`
+  - [Visual Studio Code](https://code.visualstudio.com/)
 
 ### Development Environment Setup
 
@@ -64,7 +64,7 @@ dotnet dev-certs https -ep %USERPROFILE%\.aspnet\https\aspnetapp.pfx -p 1qaz2wsx
 dotnet dev-certs https --trust
 ```
 
-FOR macOS: 
+FOR macOS:
 
 ```bash
 dotnet dev-certs https -ep ${HOME}/.aspnet/https/aspnetapp.pfx -p 1qaz2wsx@
@@ -120,14 +120,15 @@ dotnet ef database update --project src/Infrastructure --startup-project src/Gra
 
 With Visual studio:
 Open up the solutions using Visual studio.
+
 - Restore solution `nuget` packages.
 - Rebuild solution once.
 - Run the solution.
-- Bana cake pop local URL [here](https://localhost:5001/graphql).
+- Banana cake pop local URL [here](https://localhost:5001/graphql).
 - Voyager local URL [here](https://localhost:5001/graphql-voyager)
 
 ## License
 
 Licensed under the [MIT](LICENSE) license.
 
-## PRs Welcomed!
+## PRs Welcomed
