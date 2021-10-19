@@ -7,7 +7,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using static System.Boolean;
 
 namespace ConferencePlanner.Infrastructure;
 
@@ -25,7 +24,7 @@ public static class DependencyInjection
     public static IServiceCollection AddInfrastructure(this IServiceCollection services,
         IConfiguration configuration)
     {
-        TryParse(configuration.GetSection("UseSqlite").Value, out bool isSqlite);
+        var isSqlite = configuration.GetValue<bool>("UseSqlite");
         
         if (isSqlite)
         {
