@@ -6,3 +6,7 @@ services:
       - 'UseSqlite=True'
       - 'ASPNETCORE_ENVIRONMENT=Development'
       - 'ConnectionStrings__SqliteDbConnection=Data Source=conferences.db'
+      - 'ASPNETCORE_Kestrel__Certificates__Default__Password=1qaz2wsx@'
+      - 'ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx'
+    volumes:
+      - ~/.aspnet/https:/https:ro
