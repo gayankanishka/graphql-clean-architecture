@@ -44,6 +44,7 @@ You'll need the following tools:
   - [Visual Studio](https://visualstudio.microsoft.com/), version `>=2022`
   - [JetBrains Rider](https://jetbrains.com/rider/), version `>=2021.3`
   - [Visual Studio Code](https://code.visualstudio.com/)
+- [Docker](https://www.docker.com/get-started)
 
 ### Development Environment Setup
 
