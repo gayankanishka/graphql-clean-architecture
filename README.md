@@ -51,17 +51,6 @@ First clone this repository locally.
 
 - Install all of the the prerequisite tools mentioned above.
 
-### Build and run from source
-
-With Visual studio:
-Open up the solutions using Visual studio.
-
-- Restore solution `nuget` packages.
-- Rebuild solution once.
-- Run the solution.
-- Bana cake pop local URL [here](https://localhost:5001/graphql).
-- Voyager local URL [here](https://localhost:5001/graphql-voyager)
-
 ### Docker Configuration
 
 In order to get Docker working, you will need to add a temporary SSL cert and mount a volume to hold that cert. You can find [Microsoft Docs](https://docs.microsoft.com/en-us/aspnet/core/security/docker-https?view=aspnetcore-6.0) that describe the steps required for Windows, macOS, and Linux.
@@ -126,6 +115,16 @@ Update database:
 ```bash
 dotnet ef database update --project src/Infrastructure --startup-project src/GraphQL
 ```
+
+### Build and run from source
+
+With Visual studio:
+Open up the solutions using Visual studio.
+- Restore solution `nuget` packages.
+- Rebuild solution once.
+- Run the solution.
+- Bana cake pop local URL [here](https://localhost:5001/graphql).
+- Voyager local URL [here](https://localhost:5001/graphql-voyager)
 
 ## License
 
