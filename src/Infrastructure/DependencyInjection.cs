@@ -6,7 +6,6 @@ using HotChocolate.Execution.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 
 namespace ConferencePlanner.Infrastructure;
 
@@ -25,20 +24,19 @@ public static class DependencyInjection
         IConfiguration configuration)
     {
         var isInMemoryDatabase = configuration.GetValue<bool>("UseInMemoryDatabase");
-        
+
         if (isInMemoryDatabase)
         {
-            services.AddPooledDbContextFactory<ApplicationDbContext>(
-                (s, o) => o
-                    .UseInMemoryDatabase("ConferencesDb")
-                    .UseLoggerFactory(s.GetRequiredService<ILoggerFactory>()));
+            services.AddPooledDbContextFactory<ApplicationDbContext>(_ =>
+                _.UseInMemoryDatabase("ConferencesDb"));
         }
         else
         {
-            services.AddPooledDbContextFactory<ApplicationDbContext>(
-                (s, o) => o
-                    .UseNpgsql(configuration.GetConnectionString("PostgresDbConnection"))
-                    .UseLoggerFactory(s.GetRequiredService<ILoggerFactory>()));
+            services.AddPooledDbContextFactory<ApplicationDbContext>(_ =>
+                _.UseNpgsql(
+                    configuration.GetConnectionString("PostgresDbConnection"),
+                    a =>
+                        a.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
         }
 
         services.AddTransient<IAttendeeRepository>(_ =>

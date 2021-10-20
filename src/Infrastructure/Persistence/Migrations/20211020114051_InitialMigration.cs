@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
@@ -13,13 +14,13 @@ namespace ConferencePlanner.Infrastructure.Persistence.Migrations
                 name: "Attendees",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    FirstName = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
-                    LastName = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
-                    UserName = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
-                    EmailAddress = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
-                    Country = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    FirstName = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
+                    LastName = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
+                    UserName = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
+                    EmailAddress = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    Country = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -30,11 +31,11 @@ namespace ConferencePlanner.Infrastructure.Persistence.Migrations
                 name: "Speakers",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
-                    Bio = table.Column<string>(type: "TEXT", maxLength: 4000, nullable: true),
-                    WebSite = table.Column<string>(type: "TEXT", maxLength: 1000, nullable: true)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
+                    Bio = table.Column<string>(type: "character varying(4000)", maxLength: 4000, nullable: true),
+                    WebSite = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -45,9 +46,9 @@ namespace ConferencePlanner.Infrastructure.Persistence.Migrations
                 name: "Tracks",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -58,13 +59,13 @@ namespace ConferencePlanner.Infrastructure.Persistence.Migrations
                 name: "Sessions",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Title = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
-                    Abstract = table.Column<string>(type: "TEXT", maxLength: 4000, nullable: true),
-                    StartTime = table.Column<DateTimeOffset>(type: "TEXT", nullable: true),
-                    EndTime = table.Column<DateTimeOffset>(type: "TEXT", nullable: true),
-                    TrackId = table.Column<int>(type: "INTEGER", nullable: true)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Title = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
+                    Abstract = table.Column<string>(type: "character varying(4000)", maxLength: 4000, nullable: true),
+                    StartTime = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    EndTime = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    TrackId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -80,8 +81,8 @@ namespace ConferencePlanner.Infrastructure.Persistence.Migrations
                 name: "SessionAttendee",
                 columns: table => new
                 {
-                    SessionId = table.Column<int>(type: "INTEGER", nullable: false),
-                    AttendeeId = table.Column<int>(type: "INTEGER", nullable: false)
+                    SessionId = table.Column<int>(type: "integer", nullable: false),
+                    AttendeeId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -104,8 +105,8 @@ namespace ConferencePlanner.Infrastructure.Persistence.Migrations
                 name: "SessionSpeaker",
                 columns: table => new
                 {
-                    SessionId = table.Column<int>(type: "INTEGER", nullable: false),
-                    SpeakerId = table.Column<int>(type: "INTEGER", nullable: false)
+                    SessionId = table.Column<int>(type: "integer", nullable: false),
+                    SpeakerId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
