@@ -4,7 +4,7 @@
 
 ![chilli cream log](https://github.com/gayankanishka/graphql-clean-architecture/blob/533a59d7e96493b4d9e94f8fe08c04a4dc3f6af5/docs/assets/ChilliCream.svg?raw=true)
 
-The repository contains a backend of a simple Conference Planner. The backend serves as a GraphQL server. You could either use `Sqlite` or `Postgres` to persist the data. Application has docker container orchestration configured.
+The repository contains a backend of a simple Conference Planner. The backend serves as a GraphQL server. You could either use `InMemoryDatabase` or `PostgreSQL` to persist the data. Application has docker container orchestration configured.
 
 > DISCLAIMER: Original non-layered solution could be found at [ChilliCream/graphql-workshop](https://github.com/ChilliCream/graphql-workshop). This repository focuses on applying the clean-architecture principles into the above solution. Also this repository contains some additional features.
 
@@ -18,8 +18,8 @@ What's included:
 - [Hot Chocolate](https://chillicream.com/docs/hotchocolate)
 - [MediatR](https://github.com/jbogard/MediatR)
 - [EF Core](https://docs.microsoft.com/en-us/ef/core/)
-- [SqLight](https://docs.microsoft.com/en-us/dotnet/standard/data/sqlite/?tabs=netcore-cli)
-- [Postgres](https://www.npgsql.org/efcore/index.html)
+- [InMemoryDatabase](https://docs.microsoft.com/en-us/ef/core/testing/in-memory)
+- [PostgreSQL](https://www.npgsql.org/efcore/index.html)
 - [Docker](https://docs.docker.com/)
 
 ## Table of Content
@@ -88,16 +88,16 @@ docker-compose -f 'docker-compose.yml' up --build
 
 ### Database Configuration
 
-The default configuration of the application is to use an `Sqlite` database for persistence.
+The default configuration of the application is to use an `InMemory` database for persistence.
 
-If you would like to use `Postgres` as the db layer, you will need to update `src/GraphQL/appsettings.json` as follows:
+If you would like to use `PostgreSQL` as the db layer, you will need to update `src/GraphQL/appsettings.json` as follows:
 
 ```json
 {
   "ConnectionStrings": {
     "PostgresDbConnection": "YOUR_POSTGRES_CONNECTION_STRING"
   },
-  "UseSqlite": "false"
+  "UseInMemoryDatabase": "false"
 }
 ```
 

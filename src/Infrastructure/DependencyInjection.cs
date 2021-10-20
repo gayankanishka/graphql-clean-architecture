@@ -24,13 +24,13 @@ public static class DependencyInjection
     public static IServiceCollection AddInfrastructure(this IServiceCollection services,
         IConfiguration configuration)
     {
-        var isSqlite = configuration.GetValue<bool>("UseSqlite");
+        var isInMemoryDatabase = configuration.GetValue<bool>("UseInMemoryDatabase");
         
-        if (isSqlite)
+        if (isInMemoryDatabase)
         {
             services.AddPooledDbContextFactory<ApplicationDbContext>(
                 (s, o) => o
-                    .UseSqlite(configuration.GetConnectionString("SqliteDbConnection"))
+                    .UseInMemoryDatabase("ConferencesDb")
                     .UseLoggerFactory(s.GetRequiredService<ILoggerFactory>()));
         }
         else

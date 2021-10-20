@@ -3,9 +3,8 @@ version: '3.4'
 services:
   grapghql:
     environment:
-      - 'UseSqlite=True'
+      - 'UseInMemoryDatabase=true'
       - 'ASPNETCORE_ENVIRONMENT=Development'
-      - 'ConnectionStrings__SqliteDbConnection=Data Source=conferences.db'
       - 'ASPNETCORE_Kestrel__Certificates__Default__Password=1qaz2wsx@'
       - 'ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx'
     volumes:
