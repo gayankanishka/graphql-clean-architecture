@@ -3,18 +3,23 @@
   <PropertyGroup Label="Globals">
     <ProjectVersion>2.1</ProjectVersion>
     <DockerTargetOS>Linux</DockerTargetOS>
-    <ProjectGuid>6bd2ec46-fa8f-44f3-af33-903bbb347116</ProjectGuid>
+    <ProjectGuid>6bd2ec46-fa9f-44f3-af55-903bbb447116</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}</DockerServiceUrl>
-    <DockerServiceName>webui</DockerServiceName>
+    <DockerServiceName>grapghql</DockerServiceName>
     <LangVersion>default</LangVersion>
-    <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="docker-compose.yml" />
-    <None Include="docker-compose.override.yml" />
-    <None Include="docker-compose.staging.yml" />
-    <None Include="docker-compose.production.yml" />
     <None Include=".dockerignore" />
+    <None Include="docker-compose.override.yml">
+      <DependentUpon>docker-compose.yml</DependentUpon>
+    </None>
+     <None Include="docker-compose.staging.yml">
+      <DependentUpon>docker-compose.yml</DependentUpon>
+    </None>
+    <None Include="docker-compose.production.yml">
+      <DependentUpon>docker-compose.yml</DependentUpon>
+    </None>
+    <None Include="docker-compose.yml" />
   </ItemGroup>
 </Project>
