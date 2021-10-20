@@ -28,8 +28,8 @@ public class DataImporter
                 {
                     Title = sessionData["title"]!.ToString(),
                     Abstract = sessionData["description"]!.ToString(),
-                    StartTime = sessionData["startsAt"]!.Value<DateTime>(),
-                    EndTime = sessionData["endsAt"]!.Value<DateTime>()
+                    StartTime = sessionData["startsAt"]!.Value<DateTime>().ToUniversalTime(),
+                    EndTime = sessionData["endsAt"]!.Value<DateTime>().ToUniversalTime()
                 };
 
                 track.Sessions.Add(session);
