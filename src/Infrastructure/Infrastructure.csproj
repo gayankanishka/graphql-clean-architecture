@@ -12,7 +12,7 @@
     <ItemGroup>
         <PackageReference Include="GreenDonut" Version="12.7.0" />
         <PackageReference Include="HotChocolate.Execution" Version="12.7.0" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.3">
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.4">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
