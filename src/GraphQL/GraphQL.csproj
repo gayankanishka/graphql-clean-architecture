@@ -26,7 +26,7 @@
         <PackageReference Include="HotChocolate.Data" Version="12.8.2" />
         <PackageReference Include="HotChocolate.PersistedQueries.InMemory" Version="12.8.2" />
         <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.20.0" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.4">
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.5">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
