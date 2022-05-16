@@ -24,7 +24,7 @@
         <PackageReference Include="HotChocolate.AspNetCore" Version="12.8.2" />
         <PackageReference Include="HotChocolate.AspNetCore.Voyager" Version="10.5.5" />
         <PackageReference Include="HotChocolate.Data" Version="12.8.2" />
-        <PackageReference Include="HotChocolate.PersistedQueries.InMemory" Version="12.8.2" />
+        <PackageReference Include="HotChocolate.PersistedQueries.InMemory" Version="12.9.0" />
         <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.20.0" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.5">
           <PrivateAssets>all</PrivateAssets>
