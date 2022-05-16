@@ -10,9 +10,9 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="GreenDonut" Version="12.8.2" />
+        <PackageReference Include="GreenDonut" Version="12.9.0" />
         <PackageReference Include="HotChocolate.Data" Version="12.8.2" />
-        <PackageReference Include="HotChocolate.Types" Version="12.8.2" />
+        <PackageReference Include="HotChocolate.Types" Version="12.9.0" />
         <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.5" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
