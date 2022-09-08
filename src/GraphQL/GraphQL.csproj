@@ -23,7 +23,7 @@
     <ItemGroup>
         <PackageReference Include="HotChocolate.AspNetCore" Version="12.12.1" />
         <PackageReference Include="HotChocolate.AspNetCore.Voyager" Version="10.5.5" />
-        <PackageReference Include="HotChocolate.Data" Version="12.12.1" />
+        <PackageReference Include="HotChocolate.Data" Version="12.13.2" />
         <PackageReference Include="HotChocolate.PersistedQueries.InMemory" Version="12.12.1" />
         <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.21.0" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.7">
