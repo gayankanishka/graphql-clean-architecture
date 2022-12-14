@@ -14,7 +14,7 @@
         <PackageReference Include="HotChocolate.Data" Version="12.12.1" />
         <PackageReference Include="HotChocolate.Types" Version="12.12.1" />
         <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.7" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.1" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
     </ItemGroup>
 
