@@ -1,5 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33516.290
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{F1ADFCC5-AAED-46E5-BD58-B94FAE7FAFE4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F77EB19C-071D-457B-BC48-DD43C13601E2}"
@@ -10,31 +13,24 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		schema.graphql = schema.graphql
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphQL", "src\GraphQL\GraphQL.csproj", "{38CDF514-AC79-412C-B5D5-0895126A7646}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GraphQL", "src\GraphQL\GraphQL.csproj", "{38CDF514-AC79-412C-B5D5-0895126A7646}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "src\Application\Application.csproj", "{1DBE1FD9-DC83-4999-A0C1-9D5EE6600DDF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "src\Application\Application.csproj", "{1DBE1FD9-DC83-4999-A0C1-9D5EE6600DDF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "src\Domain\Domain.csproj", "{4EBEF94A-24F5-457C-A684-D4BA007B8623}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "src\Domain\Domain.csproj", "{4EBEF94A-24F5-457C-A684-D4BA007B8623}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "src\Infrastructure\Infrastructure.csproj", "{2160CAA1-4859-4040-BF84-A559765B6CCA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "src\Infrastructure\Infrastructure.csproj", "{2160CAA1-4859-4040-BF84-A559765B6CCA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{8AAE50AB-7208-475B-A719-98D192EC6D00}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphQL.Tests", "tests\GraphQL.Tests\GraphQL.Tests.csproj", "{E61DDD22-3674-41D8-918D-7744A0730352}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GraphQL.Tests", "tests\GraphQL.Tests\GraphQL.Tests.csproj", "{E61DDD22-3674-41D8-918D-7744A0730352}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "docker-compose", "docker-compose.dcproj", "{6BD2EC46-FA8F-44F3-AF33-903BBB347116}"
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{6BD2EC46-FA9F-44F3-AF55-903BBB447116}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{38CDF514-AC79-412C-B5D5-0895126A7646} = {F1ADFCC5-AAED-46E5-BD58-B94FAE7FAFE4}
-		{1DBE1FD9-DC83-4999-A0C1-9D5EE6600DDF} = {F1ADFCC5-AAED-46E5-BD58-B94FAE7FAFE4}
-		{4EBEF94A-24F5-457C-A684-D4BA007B8623} = {F1ADFCC5-AAED-46E5-BD58-B94FAE7FAFE4}
-		{2160CAA1-4859-4040-BF84-A559765B6CCA} = {F1ADFCC5-AAED-46E5-BD58-B94FAE7FAFE4}
-		{E61DDD22-3674-41D8-918D-7744A0730352} = {8AAE50AB-7208-475B-A719-98D192EC6D00}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{38CDF514-AC79-412C-B5D5-0895126A7646}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -57,9 +53,22 @@ Global
 		{E61DDD22-3674-41D8-918D-7744A0730352}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E61DDD22-3674-41D8-918D-7744A0730352}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E61DDD22-3674-41D8-918D-7744A0730352}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6BD2EC46-FA8F-44F3-AF33-903BBB347116}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6BD2EC46-FA8F-44F3-AF33-903BBB347116}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6BD2EC46-FA8F-44F3-AF33-903BBB347116}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{6BD2EC46-FA8F-44F3-AF33-903BBB347116}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{6BD2EC46-FA9F-44F3-AF55-903BBB447116}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BD2EC46-FA9F-44F3-AF55-903BBB447116}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BD2EC46-FA9F-44F3-AF55-903BBB447116}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BD2EC46-FA9F-44F3-AF55-903BBB447116}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{38CDF514-AC79-412C-B5D5-0895126A7646} = {F1ADFCC5-AAED-46E5-BD58-B94FAE7FAFE4}
+		{1DBE1FD9-DC83-4999-A0C1-9D5EE6600DDF} = {F1ADFCC5-AAED-46E5-BD58-B94FAE7FAFE4}
+		{4EBEF94A-24F5-457C-A684-D4BA007B8623} = {F1ADFCC5-AAED-46E5-BD58-B94FAE7FAFE4}
+		{2160CAA1-4859-4040-BF84-A559765B6CCA} = {F1ADFCC5-AAED-46E5-BD58-B94FAE7FAFE4}
+		{E61DDD22-3674-41D8-918D-7744A0730352} = {8AAE50AB-7208-475B-A719-98D192EC6D00}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5B6F4624-8FCB-4819-B557-3EEFA6921B49}
 	EndGlobalSection
 EndGlobal
